@@ -4,7 +4,7 @@ const client = new Discord.Client();
 const config = require('./config.json');
 const links = require('./links.json');
 const ytdl = require('ytdl-core');
-
+const queue = new Map();
 
 client.login(config.token);
 
@@ -19,8 +19,8 @@ client.on('disconnect', () => console.log('Just disconnected!'));
 
 client.on('message', async message =>{
     // Music queue
-    //const serverQueue = queue.get(message.guild.id);
-    const queue = new Map();
+    const serverQueue = queue.get(message.guild.id);
+    
 
     // In case its a bot's message
     if(message.author.bot) return;
@@ -72,7 +72,8 @@ client.on('guildMemberRemove', member => {
 
 async function execute(message, serverQueue){
     const arr = message.content.split(" ");
-    const voiceChannel = message.member.voiceChannel;
+    const voiceChannel = message.member.voice.channel;
+    console.log(voiceChannel)
     if(!voiceChannel){
         return message.channel.send("Você precisa estar conectado a um canal de voz!");
     }
@@ -80,10 +81,10 @@ async function execute(message, serverQueue){
     if(!permissions.has("CONNECT") || !permissions.has("SPEAK")){
         return message.channel.send("Painho não me deu permissão pra entrar nesse canal de voz :(");
     }
-    const info = await ytdl.getInfo(args[1]);
+    const info = await ytdl.getInfo(arr[1]);
     const song = {
-        title: songInfo.title,
-        url: songInfo.video_url,
+        title: info.title,
+        url: info.video_url,
     };
     if(!serverQueue){
 

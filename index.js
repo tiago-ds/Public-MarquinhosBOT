@@ -35,6 +35,7 @@ client.on("message", async message => {
     if (
         channelId != 680967084879904778 &&
         channelId != 680976473926270991 &&
+        channelId != 681203771036270725 &&
         message.content.charAt(0).match("[-;!]")
     ) {
         message.author.send("Este não é o canal apropriado para comandos de bots.");
@@ -64,7 +65,7 @@ client.on("message", async message => {
                 message.channel.send("```"+ fila +"```")
             case "disconnect":
                 if (message.guild.voice.connection) {
-                    message.guild.voice.connection.disconnect();
+                    message.guild.voiceChannel.disconnect();
                 } else {
                     message.channel.send("Eu não estou em um canal de voz :/");
                 }
@@ -131,7 +132,7 @@ client.on("guildMemberRemove", member => {
 
 async function execute(message, serverQueue) {
     const arr = message.content.replace("!play ", "");
-    const voiceChannel = message.member.voice.channel;
+    const voiceChannel = message.member.voiceChannel;
     if (!voiceChannel) {
         return message.channel.send(
             "Você precisa estar conectado a um canal de voz!"
@@ -169,7 +170,7 @@ async function execute(message, serverQueue) {
             await serverQueue.push(queueConstruct);
             try {
                 if (!serverQueue[0].playing) {
-                    play(message.guild, serverQueue);
+                    playMusic(message.guild, serverQueue);
                 }
             } catch (err) {
                 console.log(err)
@@ -210,7 +211,7 @@ async function execute(message, serverQueue) {
             serverQueue.push(queueConstruct);
             console.log(serverQueue[0].playing);
             if (!serverQueue[0].playing) {
-                play(message.guild, serverQueue);
+                await playMusic(message.guild, serverQueue);
             }
         } catch (err) {
             console.log(err);
@@ -227,46 +228,42 @@ function search(songName) {
                 reject(err);
             }
             filter = filters.get("Type").find(o => o.name === "Video");
-            ytsr.getFilters(filter.ref, function (err, filters) {
+            var options = {
+                limit: 5,
+                nextpageRef: filter.ref
+            };
+            ytsr(null, options, function (err, searchResults) {
                 if (err) {
                     reject(err);
                 }
-                filter = filters.get("Duration").find(o => o.name.startsWith("Short"));
-                var options = {
-                    limit: 5,
-                    nextpageRef: filter.ref
-                };
-                ytsr(null, options, function (err, searchResults) {
-                    if (err) {
-                        reject(err);
-                    }
-                    video_id = searchResults.items[0].link;
-                    console.log(video_id);
-                    resolve(video_id);
-                    return video_id;
-                });
+                video_id = searchResults.items[0].link;
+                console.log(video_id);
+                resolve(video_id);
+                return video_id;
             });
         });
     });
 }
-
-function play(guild, serverQueue) {
-    console.log(Array.isArray(serverQueue));
-    console.log(typeof serverQueue);
-    if (serverQueue.length == 0) {
-        serverQueue.voiceChannel.leave();
+/**
+ * Play the music on a voice channel
+ * @param {*} guild 
+ * @param {*} serverQueue 
+ */
+function playMusic(guild, serverQueue) {
+    if (serverQueue.length <= 0) {
+        serverQueue[0].textChannel.send("Morri");
+        guild.voiceChannel.disconnect();
         return;
     }
     console.log(serverQueue.lenght);
     if (serverQueue.length > 0) {
-        console.log(serverQueue[0].song.url);
-        console.log(serverQueue[0].song.volume);
+        console.log(serverQueue[0].song.title);
         const dispatcher = serverQueue[0].connection
-            .play(ytdl(serverQueue[0].song.url))
-            .on("finish", () => {
+            .playStream(ytdl(serverQueue[0].song.url))
+            .on("end", () => {
                 serverQueue.shift();
                 console.log(serverQueue.length);
-                play(guild, serverQueue);
+                playMusic(guild, serverQueue);
             })
             .on("error", error => console.error(error));
         serverQueue[0].playing = true;

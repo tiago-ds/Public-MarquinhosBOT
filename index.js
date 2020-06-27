@@ -77,7 +77,7 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
     if(oldUserChannel === undefined && newUserChannel !== undefined) {
         if(isReady){
             switch(today.getDay()){
-                case (6):
+                case (4):
                     playQuinta(newUserChannel);
                     break;
                 case (5):

@@ -12,6 +12,7 @@ client.login(config.token);
 client.on('ready', () =>{
     console.log("logged");
     client.user.setActivity('pedra na casa de Manu');
+    //client.user.setAvatar('');
 });
 
 client.on('warn', console.error);
@@ -47,6 +48,9 @@ client.on('message', async message =>{
             case('cavalo'):
                 cavalo(message);
                 break;
+            case('olavac'):
+                olavac(message);
+                break;
             case('chaos'):
                 chaos(message);
                 break;
@@ -65,9 +69,35 @@ client.on('guildMemberRemove', member => {
     member.send('Bem vindo ao devaneios! :)');
 });
 
+client.on('voiceStateUpdate', (oldMember, newMember) => {
+    let newUserChannel = newMember.voiceChannel
+    let oldUserChannel = oldMember.voiceChannel
+    today = new Date();  
+     // User Joins a voice channel
+    if(oldUserChannel === undefined && newUserChannel !== undefined) {
+        if(isReady){
+            switch(today.getDay()){
+                case (6):
+                    playQuinta(newUserChannel);
+                    break;
+                case (5):
+                    playSexta(newUserChannel);
+                    break;
+            }
+        }
+    }
+});
+
 async function cavalo(message){
-    console.log('cavalo!')
+    //console.log('cavalo!')
     message.channel.send({files: ['attachments/cavalo.gif']});
+    channel = message.channel;
+    //setTimeout(() => { channel.lastMessage.delete(); }, 1000);
+}
+
+async function olavac(message){
+    //console.log('cavalo!')
+    message.channel.send({files: ['attachments/olavac.gif']});
     channel = message.channel;
     //setTimeout(() => { channel.lastMessage.delete(); }, 1000);
 }
@@ -86,11 +116,11 @@ async function disconnect(message){
 }
 //Chaos part 1. Here I just play the noisy song and call chaos part 2
 async function chaos(message){
-    if(isReady){
+    var voiceChannel = message.member.voiceChannel;
+    if(isReady && voiceChannel){
         //That exists so someone can't call the bot inside the voice channel if he is in one already.
         isReady = false;
-
-        var voiceChannel = message.member.voiceChannel;
+        // This just gets the voice channel that the user called;
         voiceChannel.join().then(connection =>
             {
                 const dispatcher = connection.playFile('./caos.mp3');
@@ -101,11 +131,13 @@ async function chaos(message){
                 });
             }).catch(err => console.log(err));
             isReady = true;
+    }else{
+        message.channel.send('Você não está num canal de voz!');
     }
 }
 
 async function chaos2(message){
-    //Why do i have to do a try/catch just to delete a message? Dunno >:
+    //Why do I have to do a try/catch just to delete a message? Dunno >:
     try {
         await message.delete();   
     } catch (error) {
@@ -135,7 +167,7 @@ async function chaos2(message){
 
 function chaos3(counter, voiceChannel, voiceChannels, activeUsers, msgChannel){
     // That's how I made it work. Recursively calling the function chaos with a counter that goes from 1 to 10.
-    if(counter < 2){
+    if(counter < 10){
         setTimeout(function() {
             // First, incremente the counter to the next call
             counter++;
@@ -143,8 +175,13 @@ function chaos3(counter, voiceChannel, voiceChannels, activeUsers, msgChannel){
             randomKey = activeUsers.randomKey();
             usuario = activeUsers.get(randomKey);
             usuario.setVoiceChannel(voiceChannels.randomKey());
-            // There's the recursivity
-            chaos3(counter, voiceChannel, voiceChannels, activeUsers, msgChannel);
+            // Check if the user disconnected from a voice channel during the recursivity #TA QUEBRANDO#
+            if(usuario.voiceChannel){
+                // There's the recursivity
+                chaos3(counter, voiceChannel, voiceChannels, activeUsers, msgChannel);
+            }
+            
+            
         }, 1500);
     }else{
         // For sure I can improve that.
@@ -153,9 +190,37 @@ function chaos3(counter, voiceChannel, voiceChannels, activeUsers, msgChannel){
         for(x = 0; x < usersArray.length; x++){
             usuario = activeUsers.get(usersArray[x]);
             // Console.log('Deslocando ' + usuario.username + ' para o canal ' + voiceChannel.name + '.');
-            usuario.setVoiceChannel(voiceChannel.id.toString());
+            usuario.setVoiceChannel(voiceChannel.id.toString());       
         }
     }
+}
+
+async function playQuinta(newUserChannel){
+    randint = Math.floor(Math.random() * 2);
+    if(randint === 1)
+        filepath = './quintafeiradaledale.mp3';
+    else
+        filepath = './sextaanao.mp3';
+    isReady = false;
+    newUserChannel.join().then(connection => {
+        const dispatcher = connection.playFile(filepath);
+        dispatcher.on('end', end => {
+            newUserChannel.leave();
+            isReady = true;
+        });
+    }).catch(err => console.log(err));
+}
+
+async function playSexta(newUserChannel){
+    filepath = './sextafeirasim.mp3';
+    isReady = false;
+    newUserChannel.join().then(connection => {
+        const dispatcher = connection.playFile(filepath);
+        dispatcher.on('end', end => {
+            newUserChannel.leave();
+            isReady = true;
+        });
+    }).catch(err => console.log(err));
 }
 
 //that shit do not work

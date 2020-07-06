@@ -89,6 +89,7 @@ client.on('guildMemberRemove', member => {
 
 client.on('voiceStateUpdate', (oldMember, newMember) => {
     let newUserChannel = newMember.voiceChannel
+    //console.log(newUserChannel);
     let oldUserChannel = oldMember.voiceChannel
     today = new Date();
 
@@ -156,6 +157,8 @@ async function chaos(message){
         //That exists so someone can't call the bot inside the voice channel if he is in one already.
         isReady = false;
         // Just the method to play the caos song
+        // I don't use the playSong() here so the Chaos2 can be called when the song finish
+        // Yeah I could pass a boolean saying if this was the chaos song, but I would need two more parameters.
         voiceChannel.join().then(connection => {
                 const dispatcher = connection.playFile('./caos.mp3');
                 dispatcher.on('end', end => {
@@ -212,13 +215,17 @@ function chaos3(counter, voiceChannel, voiceChannels, activeUsers, msgChannel){
             // Check if the user disconnected from a voice channel during the recursivity 
             if(usuario.voiceChannel){
                 // There's the recursivity
-                chaos3(counter, voiceChannel, voiceChannels, activeUsers, msgChannel);
+                try {
+                    chaos3(counter, voiceChannel, voiceChannels, activeUsers, msgChannel);
+                } catch (error) {
+                    console.log('erro!');
+                }
             }
         }, 1500);
     }else{
         // For sure I can improve that.
         usersArray = activeUsers.firstKey(activeUsers.array().length);
-        // The last iteration that runs ALL the active userss array, sending them to the original channel.
+        // The last iteration that runs ALL the active users array, sending them to the original channel.
         for(x = 0; x < usersArray.length; x++){
             usuario = activeUsers.get(usersArray[x]);
             // Console.log('Deslocando ' + usuario.username + ' para o canal ' + voiceChannel.name + '.');
@@ -233,26 +240,12 @@ async function playQuinta(newUserChannel){
         filepath = './quintafeiradaledale.mp3';
     else
         filepath = './sextaanao.mp3';
-    isReady = false;
-    newUserChannel.join().then(connection => {
-        const dispatcher = connection.playFile(filepath);
-        dispatcher.on('end', end => {
-            newUserChannel.leave();
-            isReady = true;
-        });
-    }).catch(err => console.log(err));
+    playSong(filepath, newUserChannel);
 }
 
 async function playSexta(newUserChannel){
     filepath = './sextafeirasim.mp3';
-    isReady = false;
-    newUserChannel.join().then(connection => {
-        const dispatcher = connection.playFile(filepath);
-        dispatcher.on('end', end => {
-            newUserChannel.leave();
-            isReady = true;
-        });
-    }).catch(err => console.log(err));
+    playSong(filepath, newUserChannel);
 }
 
 //that shit do not work
@@ -278,14 +271,7 @@ async function horario(message){
     // If its midnight, Marquinhos enter the voice channel and ANNOUNCES that its OLEO DE MACACO TIME
     if(hoje.getHours() == 00 && isReady){
         filepath = './macaco.mp3';
-        isReady = false;
-        newUserChannel.join().then(connection => {
-            const dispatcher = connection.playFile(filepath);
-            dispatcher.on('end', end => {
-                newUserChannel.leave();
-                isReady = true;
-            });
-        }).catch(err => console.log(err));
+        playSong(filepath, newUserChannel);
     }else{
         // If its not midnight, Marquinhos send the time in the channel
         if(hoje.getHours < 10){
@@ -338,4 +324,15 @@ async function desprender(message){
     // If its not one of the above, the person can be (de?)arrested
         idPreso = undefined;
     }
+}
+
+async function playSong(filepath, newUserChannel){
+    isReady = false;
+    newUserChannel.join().then(connection => {
+        const dispatcher = connection.playFile(filepath);
+        dispatcher.on('end', end => {
+            newUserChannel.leave();
+            isReady = true;
+        });
+    }).catch(err => console.log(err));
 }

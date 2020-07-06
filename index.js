@@ -1,6 +1,7 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
 var isReady = true;
+var idPreso = undefined;
 
 const config = require('./config.json');
 const links = require('./links.json');
@@ -26,6 +27,10 @@ client.on('message', async message =>{
     channel = message.channel;
     if(channel.id != 680967084879904778 && channel.id != 680976473926270991 && message.content.charAt(0).match('[-;]')){
         message.author.send('Este não é o canal apropriado para comandos de bots.');
+        message.delete();
+    }
+    if(channel.id == '709874875162034266' && (!message.content.startsWith('http'))){
+        message.author.send('Esse canal é para enviar links! >:(');
         message.delete();
     }
     // In case its not a prefix starting message
@@ -54,6 +59,18 @@ client.on('message', async message =>{
             case('chaos'):
                 chaos(message);
                 break;
+            case('moeda'):
+                moeda(message);
+                break;
+            case('horario'):
+                horario(message);
+                break;
+            case('prender'):
+                prender(message);
+                break;
+            case('desprender'):
+                desprender(message);
+                break;
             default:
                 message.channel.send('Favor digitar um comando válido.');
         }
@@ -62,6 +79,7 @@ client.on('message', async message =>{
 
 client.on('guildMemberAdd', member => {
     member.guild.channels.get('680975188581416998').send(member.user.username + ' agora faz parte do motel!');
+    
 });
 
 client.on('guildMemberRemove', member => {
@@ -72,8 +90,24 @@ client.on('guildMemberRemove', member => {
 client.on('voiceStateUpdate', (oldMember, newMember) => {
     let newUserChannel = newMember.voiceChannel
     let oldUserChannel = oldMember.voiceChannel
-    today = new Date();  
-     // User Joins a voice channel
+    today = new Date();
+
+    // Every time that someone enters a voice channel, we check if that person its arrested.
+    if(idPreso){
+        // It's inside a try/catch so if the person disconnect, marquinhos don't break
+        try {
+            // We check if the person that joined the voice channel it's arrested AND if the arrested person
+            // didn't just joined the arrested channel (it prevents that the person from being moved infinitely)
+            // to the arrested channel.
+            if(newMember.id == idPreso && newUserChannel.id != '699864271911256074'){
+                newMember.setVoiceChannel('699864271911256074');
+            }
+        } catch (error) {
+            console.log('erro');
+        }
+        
+    }
+     // User Joins a voice channel and wasn't already in one
     if(oldUserChannel === undefined && newUserChannel !== undefined) {
         if(isReady){
             switch(today.getDay()){
@@ -116,22 +150,22 @@ async function disconnect(message){
 }
 //Chaos part 1. Here I just play the noisy song and call chaos part 2
 async function chaos(message){
+     // This just gets the voice channel that the user called;
     var voiceChannel = message.member.voiceChannel;
     if(isReady && voiceChannel){
         //That exists so someone can't call the bot inside the voice channel if he is in one already.
         isReady = false;
-        // This just gets the voice channel that the user called;
-        voiceChannel.join().then(connection =>
-            {
+        // Just the method to play the caos song
+        voiceChannel.join().then(connection => {
                 const dispatcher = connection.playFile('./caos.mp3');
                 dispatcher.on('end', end => {
-                    //console.log('finished caos song');
-                    chaos2(message);
                     voiceChannel.leave();
+                    chaos2(message);      
                 });
-            }).catch(err => console.log(err));
+            }).catch(err => console.log(err)); 
             isReady = true;
     }else{
+        // If the person isn't inside a voice channel
         message.channel.send('Você não está num canal de voz!');
     }
 }
@@ -175,13 +209,11 @@ function chaos3(counter, voiceChannel, voiceChannels, activeUsers, msgChannel){
             randomKey = activeUsers.randomKey();
             usuario = activeUsers.get(randomKey);
             usuario.setVoiceChannel(voiceChannels.randomKey());
-            // Check if the user disconnected from a voice channel during the recursivity #TA QUEBRANDO#
+            // Check if the user disconnected from a voice channel during the recursivity 
             if(usuario.voiceChannel){
                 // There's the recursivity
                 chaos3(counter, voiceChannel, voiceChannels, activeUsers, msgChannel);
             }
-            
-            
         }, 1500);
     }else{
         // For sure I can improve that.
@@ -227,3 +259,83 @@ async function playSexta(newUserChannel){
 /* function sleep(milliseconds){
     return new Promise((resolve) => {setTimeout(resolve, milliseconds)});
 } */
+
+async function moeda(message){
+    // Just a function that gets a random number between 0 or 1
+    randint = Math.floor(Math.random() * 2);
+    // If the random number is 1, print CARA!
+    if(randint === 1){
+        message.channel.send('CARA!');
+    }else{
+    // Just print COROA!
+        message.channel.send('COROA!');
+    }
+}
+
+async function horario(message){
+    hoje = new Date();
+    newUserChannel = message.member.voiceChannel;
+    // If its midnight, Marquinhos enter the voice channel and ANNOUNCES that its OLEO DE MACACO TIME
+    if(hoje.getHours() == 00 && isReady){
+        filepath = './macaco.mp3';
+        isReady = false;
+        newUserChannel.join().then(connection => {
+            const dispatcher = connection.playFile(filepath);
+            dispatcher.on('end', end => {
+                newUserChannel.leave();
+                isReady = true;
+            });
+        }).catch(err => console.log(err));
+    }else{
+        // If its not midnight, Marquinhos send the time in the channel
+        if(hoje.getHours < 10){
+            message.channel.send('Agora são 0' + hoje.getHours() + ':' + hoje.getMinutes());
+        }else{
+            message.channel.send('Agora são ' + hoje.getHours() + ':' + hoje.getMinutes());
+        }
+    }
+}
+
+async function prender(message){
+    // idPreso can be undefined (wich will activate the function)
+    if(!idPreso){
+        /* Transforms the content of the message in an array and excludes the !prender part
+        arrayPreso = message.content.split(' ');
+        arrayPreso.shift();
+        // Retransforms the name in a String without the !prender part (why didn't I just used replace()?)
+        nomePreso = arrayPreso.join(' ');
+        */
+        // Get the person who should be arrested
+        nomePreso = message.content.replace('!prender ', '');
+        // Create a voiceChannel variable to ease things
+        voiceChannel = message.member.voiceChannel;
+        // Try to find a user with a nickname equals to the given name, and put into the collection presoCollection
+        presoCollection = voiceChannel.members.filter(user => user.nickname === nomePreso);
+        // If we don't find the nickname user, try with his real username
+        if(presoCollection.array().length != 1){
+            presoCollection = voiceChannel.members.filter(user => user.user.username === nomePreso);
+        }
+        // Then the id its assigned for the person who'll be arrested
+        idPreso = presoCollection.firstKey();
+        // And the variable preso gets the user itself.
+        preso = presoCollection.first();
+        // Here we warn to the sent message's channel that the person will be arrested
+        message.channel.send(message.author.username + ' prendeu ' + preso.user.username + '!');
+        // Move the arrested person to the 'alone' channel
+        preso.setVoiceChannel('699864271911256074');
+    }else{
+        // That's just in case that there's someone arrested already
+        message.channel.send('Já há alguém preso!');
+    }
+}
+
+async function desprender(message){
+    // Checks if the person who sent the !desprender request its not the arrested one
+    // (Also checks if its not the father of Marquinhos :))
+    if(message.author.id == idPreso && message.author.id != '305838877866721280'){
+        return;
+    }else{
+    // If its not one of the above, the person can be (de?)arrested
+        idPreso = undefined;
+    }
+}

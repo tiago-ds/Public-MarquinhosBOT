@@ -13,7 +13,7 @@ client.login(config.token);
 client.on('ready', () =>{
     console.log("logged");
     client.user.setActivity('pedra na casa de Manu');
-    //client.user.setAvatar('');
+    client.user.setAvatar('./attachments/marquinhoshead.jpg');
 });
 
 client.on('warn', console.error);
@@ -70,6 +70,12 @@ client.on('message', async message =>{
                 break;
             case('desprender'):
                 desprender(message);
+                break;
+            case('soltar'):
+                desprender(message);
+                break;
+            case('help'):
+                help(message);
                 break;
             default:
                 message.channel.send('Favor digitar um comando válido.');
@@ -296,10 +302,10 @@ async function prender(message){
         // Create a voiceChannel variable to ease things
         voiceChannel = message.member.voiceChannel;
         // Try to find a user with a nickname equals to the given name, and put into the collection presoCollection
-        presoCollection = voiceChannel.members.filter(user => user.nickname === nomePreso);
+        presoCollection = message.guild.members.filter(user => user.nickname === nomePreso);
         // If we don't find the nickname user, try with his real username
         if(presoCollection.array().length != 1){
-            presoCollection = voiceChannel.members.filter(user => user.user.username === nomePreso);
+            presoCollection = message.guild.members.filter(user => user.user.username === nomePreso);
         }
         // Then the id its assigned for the person who'll be arrested
         idPreso = presoCollection.firstKey();
@@ -335,4 +341,24 @@ async function playSong(filepath, newUserChannel){
             isReady = true;
         });
     }).catch(err => console.log(err));
+}
+
+async function help(message){
+    args = message.content.split(' ');
+    // Just !help function
+    if(!args[1]){
+        message.channel.send(links.help);
+    }
+    // Help to a specific command
+    else{
+        var bool = false;
+        comando = args[1];
+        if(links[comando] != undefined){
+            message.channel.send(links[comando]);
+        }else{
+            // Command not found
+            message.channel.send('O comando !' + args[1] + ' não existe ainda!');
+        }
+    }
+        
 }

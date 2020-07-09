@@ -1,6 +1,12 @@
 {
-    "!ajuda" : "Te vira :)",
-    "!ping" : "pong",
-    "!pokemon" : "Vai pikachu!",
-    "!comandos": "!ajuda\n!ping\n!pokemon"
+    "dm": "Te envio uma dm :)",
+    "cavalo": "CAVALO?",
+    "olavac": "!oirártnoC",
+    "chaos": "Instauro o CAOS (não se preocupa, eu arrumo vocês depois!)",
+    "moeda": "Cara ou coroa",
+    "horario": "Eu te digo a hora (principalmente se for meia noite!",
+    "prender": "Prendo alguém da sua escolha, impedindo que essa pessoa volte até que alguém o desprenda.",
+    "desprender": "Caso algúem esteja preso, eu o libero a voltar pra o canal de voz que ela quiser.",
+    "help": "Comandos:\n!dm\n!cavalo\n!olavac\n!chaos\n!moeda\n!horario\n!prender\n!desprender\n!help\nPara mais informações digite !help + comando"
+
  }

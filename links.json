@@ -7,6 +7,7 @@
     "horario": "Eu te digo a hora (principalmente se for meia noite!",
     "prender": "Prendo alguém da sua escolha, impedindo que essa pessoa volte até que alguém o desprenda.",
     "desprender": "Caso algúem esteja preso, eu o libero a voltar pra o canal de voz que ela quiser.",
-    "help": "Comandos:\n!dm\n!cavalo\n!olavac\n!chaos\n!moeda\n!horario\n!prender\n!desprender\n!help\nPara mais informações digite !help + comando"
+    "encarcerados": "Te envio a lista das pessoas que estão presas no momento!",
+    "help": "Comandos:\n!dm\n!cavalo\n!olavac\n!chaos\n!moeda\n!horario\n!prender\n!desprender\n!encarcerados\n!help\nPara mais informações digite !help + comando"
 
  }

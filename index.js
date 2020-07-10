@@ -1,7 +1,8 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
 var isReady = true;
-var idPreso = undefined;
+var idPreso = [];
+
 
 const config = require('./config.json');
 const links = require('./links.json');
@@ -13,7 +14,7 @@ client.login(config.token);
 client.on('ready', () =>{
     console.log("logged");
     client.user.setActivity('pedra na casa de Manu');
-    client.user.setAvatar('./attachments/marquinhoshead.jpg');
+    //client.user.setAvatar('./attachments/marquinhoshead.jpg');
 });
 
 client.on('warn', console.error);
@@ -77,6 +78,9 @@ client.on('message', async message =>{
             case('help'):
                 help(message);
                 break;
+            case('encarcerados'):
+                encarcerados(message);
+                break;
             default:
                 message.channel.send('Favor digitar um comando válido.');
         }
@@ -100,14 +104,15 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
     today = new Date();
 
     // Every time that someone enters a voice channel, we check if that person its arrested.
-    if(idPreso){
+    if(idPreso.length > 0){
         // It's inside a try/catch so if the person disconnect, marquinhos don't break
         try {
             // We check if the person that joined the voice channel it's arrested AND if the arrested person
             // didn't just joined the arrested channel (it prevents that the person from being moved infinitely)
             // to the arrested channel.
-            if(newMember.id == idPreso && newUserChannel.id != '699864271911256074'){
-                newMember.setVoiceChannel('699864271911256074');
+            if(idPreso.includes(newMember.id) && newUserChannel.id != '597641313180975174'){
+                newMember.setVoiceChannel('597641313180975174');
+                newMember.send('Você está preso! :(');
             }
         } catch (error) {
             console.log('erro');
@@ -290,45 +295,60 @@ async function horario(message){
 
 async function prender(message){
     // idPreso can be undefined (wich will activate the function)
-    if(!idPreso){
-        /* Transforms the content of the message in an array and excludes the !prender part
-        arrayPreso = message.content.split(' ');
-        arrayPreso.shift();
-        // Retransforms the name in a String without the !prender part (why didn't I just used replace()?)
-        nomePreso = arrayPreso.join(' ');
-        */
-        // Get the person who should be arrested
-        nomePreso = message.content.replace('!prender ', '');
-        // Create a voiceChannel variable to ease things
-        voiceChannel = message.member.voiceChannel;
-        // Try to find a user with a nickname equals to the given name, and put into the collection presoCollection
-        presoCollection = message.guild.members.filter(user => user.nickname === nomePreso);
-        // If we don't find the nickname user, try with his real username
-        if(presoCollection.array().length != 1){
-            presoCollection = message.guild.members.filter(user => user.user.username === nomePreso);
-        }
-        // Then the id its assigned for the person who'll be arrested
-        idPreso = presoCollection.firstKey();
-        // And the variable preso gets the user itself.
-        preso = presoCollection.first();
-        // Here we warn to the sent message's channel that the person will be arrested
-        message.channel.send(message.author.username + ' prendeu ' + preso.user.username + '!');
-        // Move the arrested person to the 'alone' channel
-        preso.setVoiceChannel('699864271911256074');
+    /* Transforms the content of the message in an array and excludes the !prender part
+    arrayPreso = message.content.split(' ');
+    arrayPreso.shift();
+    // Retransforms the name in a String without the !prender part (why didn't I just used replace()?)
+    nomePreso = arrayPreso.join(' ');
+    */
+    // Get the person who should be arrested
+    nomePreso = message.content.replace('!prender ', '');
+    // Try to find a user with a nickname equals to the given name, and put into the collection presoCollection
+    presoCollection = message.guild.members.filter(user => user.nickname === nomePreso);
+    // If we don't find the nickname user, try with his real username
+    if(presoCollection.array().length != 1){
+        presoCollection = message.guild.members.filter(user => user.user.username === nomePreso);
+    }
+    // And the variable preso gets the user itself.
+    preso = presoCollection.first();
+    if(!preso){
+        message.channel.send('Não pude achar essa pessoa no servidor!');
     }else{
-        // That's just in case that there's someone arrested already
-        message.channel.send('Já há alguém preso!');
+        if(!idPreso.includes(preso.id)){
+            // Then the id its assigned for the person who'll be arrested
+            idPreso.push(preso.id);
+            // Here we warn to the sent message's channel that the person will be arrested
+            message.channel.send(message.author.username + ' prendeu ' + preso.user.username + '!');
+             // Move the arrested person to the 'alone' channel
+            preso.setVoiceChannel('597641313180975174');
+        }else{
+            message.channel.send(preso.user.username + ' já está preso!');
+        }
     }
 }
 
 async function desprender(message){
     // Checks if the person who sent the !desprender request its not the arrested one
     // (Also checks if its not the father of Marquinhos :))
-    if(message.author.id == idPreso && message.author.id != '305838877866721280'){
+    if(idPreso.includes(message.author.id) && message.author.id != '305838877866721280'){
         return;
     }else{
-    // If its not one of the above, the person can be (de?)arrested
-        idPreso = undefined;
+        // If its not one of the above, the person can be (de?)arrested
+        nomeSolto = message.content.replace('!desprender ', '').replace('!soltar ', '');
+        // Try to find a user with a nickname equals to the given name, and put into the collection presoCollection
+        solto = message.guild.members.filter(user => user.nickname === nomeSolto).first();
+        // If we don't find the nickname user, try with his real username
+        if(!solto){
+            solto = message.guild.members.filter(user => user.user.username === nomeSolto).first();
+        }
+        if(solto && idPreso.indexOf(solto.id) != -1){
+            tiago = message.guild.members.filter(user => user.id === '305838877866721280').first();
+            tiago.send(solto.user.username + ' foi solto no Devaneios!!');
+            idPreso.splice(idPreso.indexOf(solto.id), 1);
+            solto.send('Você foi solto no Devaneios!! :)');
+        }else{
+            message.channel.send(nomeSolto + ' não está preso!');
+        }
     }
 }
 
@@ -341,6 +361,16 @@ async function playSong(filepath, newUserChannel){
             isReady = true;
         });
     }).catch(err => console.log(err));
+}
+
+async function encarcerados(message){
+    lista = '';
+    for(x = 0; x < idPreso.length; x++)
+        lista += idPreso[x] + '\n';
+    if(lista != '')
+        message.author.send(lista);
+    else   
+        message.author.send('Ninguém preso!');
 }
 
 async function help(message){

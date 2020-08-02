@@ -101,7 +101,7 @@ client.on('message', async message =>{
 
 client.on('guildMemberAdd', member => {
     member.guild.channels.get('680975188581416998').send(member.user.username + ' agora faz parte do motel!');
-    var role = member.guild.roles.find(role => role.name =\== "Outsiders");
+    var role = member.guild.roles.find(role => role.name === "Outsiders");
     member.addRole(role);
     member.send('Olá! Você foi colocado num cargo onde não é possível entrar em canais de voz. Favor contate um '+
     '"Vice-Dono" ou o "Dono do Motel" e entre no canal de voz "Alone" para que seja atribuído um cargo e você possa ' +

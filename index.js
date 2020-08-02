@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 var isReady = true;
 var idPreso = [];
-
+var counting = 0;
 
 const config = require('./config.json');
 const links = require('./links.json');
@@ -14,6 +14,11 @@ client.login(config.token);
 client.on('ready', () =>{
     console.log("logged");
     client.user.setActivity('bexiga na casa de Talita');
+    let counting = 0;
+    setInterval(function() {
+		console.log('Contando ' + counting);
+		counting++;
+	}, 300 * 1000);
     //client.user.setAvatar('./attachments/marquinhoshead.jpg');
 });
 

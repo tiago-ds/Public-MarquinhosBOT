@@ -8,6 +8,7 @@
     "prender": "Prendo alguém da sua escolha, impedindo que essa pessoa volte até que alguém o desprenda.",
     "desprender": "Caso algúem esteja preso, eu o libero a voltar pra o canal de voz que ela quiser.",
     "encarcerados": "Te envio a lista das pessoas que estão presas no momento!",
-    "help": "Comandos:\n!dm\n!cavalo\n!olavac\n!chaos\n!moeda\n!horario\n!prender\n!desprender\n!encarcerados\n!help\nPara mais informações digite !help + comando"
+    "importunar": "Importuno quem você quiser, simples assim! :)",
+    "help": "Comandos:\n!dm\n!cavalo\n!olavac\n!chaos\n!moeda\n!horario\n!prender\n!desprender\n!encarcerados\n!help\n!miau\n!cabra\n!boombam\n!importunar\nPara mais informações digite !help + comando"
 
  }

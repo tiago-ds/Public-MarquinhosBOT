@@ -336,7 +336,8 @@ async function prender(message){
     // And the variable preso gets the user itself.
     preso = presoCollection.first();
     if(preso.user.username == 'MarquinhosBOT'){
-        return
+        prender(`!prender ${user.nickname}`);
+        return;
     }
     if(!preso){
         message.channel.send('Não pude achar essa pessoa no servidor!');

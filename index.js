@@ -304,15 +304,15 @@ async function horario(message){
     hoje = new Date();
     newUserChannel = message.member.voiceChannel;
     // If its midnight, Marquinhos enter the voice channel and ANNOUNCES that its OLEO DE MACACO TIME
-    if(hoje.getHours() == 00 && isReady){
+    if(hoje.getHours() == 03 && isReady){
         filepath = './macaco.mp3';
         playSong(filepath, newUserChannel);
     }else{
         // If its not midnight, Marquinhos send the time in the channel
-        if(hoje.getHours < 10){
-            message.channel.send('Agora são 0' + hoje.getHours() + ':' + hoje.getMinutes());
+        if(hoje.getHours() - 3 < 10){
+            message.channel.send(`Agora são 0${hoje.getHours() - 3}:${hoje.getMinutes()}`);
         }else{
-            message.channel.send('Agora são ' + hoje.getHours() + ':' + hoje.getMinutes());
+            message.channel.send(`Agora são ${hoje.getHours() - 3}:${hoje.getMinutes()}`);
         }
     }
 }
@@ -390,7 +390,7 @@ async function playSong(filepath, newUserChannel){
         newUserChannel.join().then(connection => {
         const dispatcher = connection.playFile(filepath);
         dispatcher.on('end', end => {
-            newUserChannel.leave();
+            await newUserChannel.leave();
             isReady = true;
         });
     }).catch(err => console.log(err));

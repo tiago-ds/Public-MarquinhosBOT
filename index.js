@@ -390,7 +390,7 @@ async function playSong(filepath, newUserChannel){
         newUserChannel.join().then(connection => {
         const dispatcher = connection.playFile(filepath);
         dispatcher.on('end', end => {
-            await newUserChannel.leave();
+            newUserChannel.leave();
             isReady = true;
         });
     }).catch(err => console.log(err));

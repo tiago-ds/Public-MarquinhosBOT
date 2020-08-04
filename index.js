@@ -336,7 +336,7 @@ async function prender(message){
     // And the variable preso gets the user itself.
     preso = presoCollection.first();
     if(preso.user.username == 'MarquinhosBOT'){
-        prender(`!prender ${user.nickname}`);
+        prender(`!prender ${message.author.user.username}`);
         return;
     }
     if(!preso){

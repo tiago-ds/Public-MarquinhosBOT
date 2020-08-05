@@ -395,18 +395,21 @@ async function desprender(message){
 }
 
 async function playSong(filepath, newUserChannel){
-    try {
-        isReady = false;
-        newUserChannel.join().then(connection => {
-        const dispatcher = connection.playFile(filepath);
-        dispatcher.on('end', end => {
-            newUserChannel.leave();
-            isReady = true;
-        });
-    }).catch(err => console.log(err));
-    } catch (error) {
-        console.log(error)
-    }  
+    if (isReady){
+        try {
+            isReady = false;
+            newUserChannel.join().then(connection => {
+            const dispatcher = connection.playFile(filepath);
+            dispatcher.on('end', end => {
+                newUserChannel.leave();
+                isReady = true;
+            });
+        }).catch(err => console.log(err));
+        } catch (error) {
+            console.log(error)
+        }
+    }
+      
 }
 
 async function encarcerados(message){

@@ -98,6 +98,12 @@ client.on('message', async message =>{
             case('importunar'):
                 importunar(message);
                 break;
+            case('rodaroda'):
+                rodaroda(message);
+                break;
+            case('rauauauda'):
+                rauauauda(message);
+                break;
             default:
                 message.channel.send('Favor digitar um comando válido.');
         }
@@ -336,7 +342,7 @@ async function prender(message){
     // And the variable preso gets the user itself.
     preso = presoCollection.first();
     if(preso.user.username == 'MarquinhosBOT'){
-        prender(`!prender ${message.author.user.username}`);
+        prender(`!prender ${message.author.username}`);
         return;
     }
     if(!preso){
@@ -423,6 +429,16 @@ async function cabra(message){
 async function boombam(message){
     newUserChannel = message.member.voiceChannel;
     playSong('./boombam.mp3', newUserChannel)
+}
+
+async function rodaroda(message){
+    newUserChannel = message.member.voiceChannel;
+    playSong('./rodaroda.mp3', newUserChannel)
+}
+
+async function boombam(message){
+    newUserChannel = message.member.voiceChannel;
+    playSong('./rauauauda.mp3', newUserChannel)
 }
 
 async function importunar(message){

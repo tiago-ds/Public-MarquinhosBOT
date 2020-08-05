@@ -436,9 +436,10 @@ async function rodaroda(message){
     playSong('./rodaroda.mp3', newUserChannel)
 }
 
-async function boombam(message){
+async function rauauauda(message){
     newUserChannel = message.member.voiceChannel;
-    playSong('./rauauauda.mp3', newUserChannel)
+    playSong('./rauauauda.mp3', newUserChannel);
+    message.delete()
 }
 
 async function importunar(message){

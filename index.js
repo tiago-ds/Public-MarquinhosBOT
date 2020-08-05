@@ -104,6 +104,9 @@ client.on('message', async message =>{
             case('rauauauda'):
                 rauauauda(message);
                 break;
+            case('inferno'):
+                inferno(message);
+                break;
             default:
                 message.channel.send('Favor digitar um comando válido.');
         }
@@ -439,6 +442,12 @@ async function rodaroda(message){
 async function rauauauda(message){
     newUserChannel = message.member.voiceChannel;
     playSong('./rauauauda.mp3', newUserChannel);
+    message.delete()
+}
+
+async function inferno(message){
+    newUserChannel = message.member.voiceChannel;
+    playSong('./inferno.mp3', newUserChannel);
     message.delete()
 }
 

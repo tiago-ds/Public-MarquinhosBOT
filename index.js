@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 var isReady = true;
 var idPreso = [];
-
+var counting = 0;
 
 const config = require('./config.json');
 const links = require('./links.json');
@@ -13,7 +13,12 @@ client.login(config.token);
 
 client.on('ready', () =>{
     console.log("logged");
-    client.user.setActivity('pedra na casa de Manu');
+    client.user.setActivity('bexiga na casa de Talita');
+    let counting = 0;
+    setInterval(function() {
+		console.log('Contando ' + counting);
+		counting++;
+	}, 300 * 1000);
     //client.user.setAvatar('./attachments/marquinhoshead.jpg');
 });
 
@@ -81,6 +86,27 @@ client.on('message', async message =>{
             case('encarcerados'):
                 encarcerados(message);
                 break;
+            case('miau'):
+                miau(message);
+                break;
+            case('cabra'):
+                cabra(message);
+                break;
+            case('boombam'):
+                boombam(message);
+                break;
+            case('importunar'):
+                importunar(message);
+                break;
+            case('rodaroda'):
+                rodaroda(message);
+                break;
+            case('rauauauda'):
+                rauauauda(message);
+                break;
+            case('inferno'):
+                inferno(message);
+                break;
             default:
                 message.channel.send('Favor digitar um comando válido.');
         }
@@ -89,7 +115,13 @@ client.on('message', async message =>{
 
 client.on('guildMemberAdd', member => {
     member.guild.channels.get('680975188581416998').send(member.user.username + ' agora faz parte do motel!');
-    
+    var role = member.guild.roles.find(role => role.name === "Outsiders");
+    member.addRole(role);
+    member.send('Olá! Você foi colocado num cargo onde não é possível entrar em canais de voz. Favor contate um '+
+    '"Vice-Dono" ou o "Dono do Motel" e entre no canal de voz "Alone" para que seja atribuído um cargo e você possa ' +
+    'usar o servidor normalmente! :D');
+    tiago = message.guild.members.filter(user => user.id === '305838877866721280').first();
+    tiago.send(`O usuário ${member.user.username} entrou no servidor e quer se registrar!`);
 });
 
 client.on('guildMemberRemove', member => {
@@ -111,7 +143,7 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
             // didn't just joined the arrested channel (it prevents that the person from being moved infinitely)
             // to the arrested channel.
             if(idPreso.includes(newMember.id) && newUserChannel.id != '597641313180975174'){
-                newMember.setVoiceChannel('597641313180975174');
+                newMember.setVoiceChannel('597641313180975174');node .
                 newMember.send('Você está preso! :(');
             }
         } catch (error) {
@@ -178,6 +210,7 @@ async function chaos(message){
                 });
             }).catch(err => console.log(err)); 
             isReady = true;
+            chaos2(message); 
     }else{
         // If the person isn't inside a voice channel
         message.channel.send('Você não está num canal de voz!');
@@ -280,15 +313,15 @@ async function horario(message){
     hoje = new Date();
     newUserChannel = message.member.voiceChannel;
     // If its midnight, Marquinhos enter the voice channel and ANNOUNCES that its OLEO DE MACACO TIME
-    if(hoje.getHours() == 00 && isReady){
+    if(hoje.getHours() == 03 && isReady){
         filepath = './macaco.mp3';
         playSong(filepath, newUserChannel);
     }else{
         // If its not midnight, Marquinhos send the time in the channel
-        if(hoje.getHours < 10){
-            message.channel.send('Agora são 0' + hoje.getHours() + ':' + hoje.getMinutes());
+        if(hoje.getHours() - 3 < 10){
+            message.channel.send(`Agora são 0${hoje.getHours() - 3}:${hoje.getMinutes()}`);
         }else{
-            message.channel.send('Agora são ' + hoje.getHours() + ':' + hoje.getMinutes());
+            message.channel.send(`Agora são ${hoje.getHours() - 3}:${hoje.getMinutes()}`);
         }
     }
 }
@@ -311,6 +344,10 @@ async function prender(message){
     }
     // And the variable preso gets the user itself.
     preso = presoCollection.first();
+    if(preso.user.username == 'MarquinhosBOT'){
+        prender(`!prender ${message.author.username}`);
+        return;
+    }
     if(!preso){
         message.channel.send('Não pude achar essa pessoa no servidor!');
     }else{
@@ -345,7 +382,12 @@ async function desprender(message){
             tiago = message.guild.members.filter(user => user.id === '305838877866721280').first();
             tiago.send(solto.user.username + ' foi solto no Devaneios!!');
             idPreso.splice(idPreso.indexOf(solto.id), 1);
-            solto.send('Você foi solto no Devaneios!! :)');
+            try {
+                solto.send('Você foi solto no Devaneios!! :)');
+            } catch (error) {
+                console.log(error)
+            }
+            
         }else{
             message.channel.send(nomeSolto + ' não está preso!');
         }
@@ -353,14 +395,21 @@ async function desprender(message){
 }
 
 async function playSong(filepath, newUserChannel){
-    isReady = false;
-    newUserChannel.join().then(connection => {
-        const dispatcher = connection.playFile(filepath);
-        dispatcher.on('end', end => {
-            newUserChannel.leave();
-            isReady = true;
-        });
-    }).catch(err => console.log(err));
+    if (isReady){
+        try {
+            isReady = false;
+            newUserChannel.join().then(connection => {
+            const dispatcher = connection.playFile(filepath);
+            dispatcher.on('end', end => {
+                newUserChannel.leave();
+                isReady = true;
+            });
+        }).catch(err => console.log(err));
+        } catch (error) {
+            console.log(error)
+        }
+    }
+      
 }
 
 async function encarcerados(message){
@@ -371,6 +420,65 @@ async function encarcerados(message){
         message.author.send(lista);
     else   
         message.author.send('Ninguém preso!');
+}
+
+async function miau(message){
+    newUserChannel = message.member.voiceChannel;
+    playSong('./miau.mp3', newUserChannel)
+}
+
+async function cabra(message){
+    newUserChannel = message.member.voiceChannel;
+    playSong('./cabra.mp3', newUserChannel)
+}
+
+async function boombam(message){
+    newUserChannel = message.member.voiceChannel;
+    playSong('./boombam.mp3', newUserChannel)
+}
+
+async function rodaroda(message){
+    newUserChannel = message.member.voiceChannel;
+    playSong('./rodaroda.mp3', newUserChannel)
+}
+
+async function rauauauda(message){
+    newUserChannel = message.member.voiceChannel;
+    playSong('./rauauauda.mp3', newUserChannel);
+    message.delete()
+}
+
+async function inferno(message){
+    newUserChannel = message.member.voiceChannel;
+    playSong('./inferno.mp3', newUserChannel);
+    message.delete()
+}
+
+async function importunar(message){
+    randint = Math.floor(Math.random() * 3);
+    pessoaImportunada = message.content.split(' ')[1];
+    console.log(pessoaImportunada)
+    importunada = message.guild.members.filter(user => user.user.username === pessoaImportunada).first();
+    if(!importunada){
+        importunada = message.guild.members.filter(user => user.nickname === pessoaImportunada).first();
+    }
+    //console.log(importunada)
+    switch(randint){
+        case(1):
+            filepath = './miau.mp3';
+            break;
+        case(2):
+            filepath = './cabra.mp3';
+            break;
+        case(3):
+            filepath = './boombam';
+            break;
+    }
+    try {
+        playSong(filepath, importunada.voiceChannel) ;   
+    } catch (error) {
+        console.log()   
+    }
 }
 
 async function help(message){

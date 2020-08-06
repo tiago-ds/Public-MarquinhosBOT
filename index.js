@@ -152,7 +152,7 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
         
     }
      // User Joins a voice channel and wasn't already in one
-    if(oldUserChannel === undefined && newUserChannel !== undefined) {
+    if(oldUserChannel === undefined && newUserChannel !== undefined && newMember == 'bot') {
         if(isReady){
             switch(today.getDay()){
                 case (4):

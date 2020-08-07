@@ -13,9 +13,13 @@ client.login(config.token);
 
 client.on('ready', () =>{
     console.log("logged");
-    client.user.setActivity('bexiga na casa de Talita');
+    bicho = ['no galo 49', 'no veado 94', 'na vaca 00', 'no carneiro 26', 'na borboleta 33']
+    randint = Math.floor(Math.random() * 4);
+    client.user.setActivity(bicho[randint]);
     let counting = 0;
     setInterval(function() {
+        randint = Math.floor(Math.random() * 4);
+        client.user.setActivity(bicho[randint])
 		console.log('Contando ' + counting);
 		counting++;
 	}, 300 * 1000);
@@ -143,7 +147,7 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
             // didn't just joined the arrested channel (it prevents that the person from being moved infinitely)
             // to the arrested channel.
             if(idPreso.includes(newMember.id) && newUserChannel.id != '597641313180975174'){
-                newMember.setVoiceChannel('597641313180975174');node .
+                newMember.setVoiceChannel('597641313180975174');
                 newMember.send('Você está preso! :(');
             }
         } catch (error) {
@@ -152,9 +156,10 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
         
     }
      // User Joins a voice channel and wasn't already in one
-    if(oldUserChannel === undefined && newUserChannel !== undefined && newMember == 'bot') {
+    if(oldUserChannel === undefined && newUserChannel !== undefined && newMember.id != '234395307759108106') {
         if(isReady){
-            switch(today.getDay()){
+            hoje = new Date()
+            switch(hoje.getDay()){
                 case (4):
                     playQuinta(newUserChannel);
                     break;
@@ -396,7 +401,6 @@ async function desprender(message){
 
 async function playSong(filepath, newUserChannel){
     if (isReady){
-        try {
             isReady = false;
             newUserChannel.join().then(connection => {
             const dispatcher = connection.playFile(filepath);
@@ -405,9 +409,6 @@ async function playSong(filepath, newUserChannel){
                 isReady = true;
             });
         }).catch(err => console.log(err));
-        } catch (error) {
-            console.log(error)
-        }
     }
       
 }

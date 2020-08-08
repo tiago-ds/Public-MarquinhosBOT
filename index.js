@@ -3,10 +3,19 @@ const Discord = require("discord.js");
 const config = require("./configs/config.json");
 const fileEdit = require("./utils/fileEdit");
 const client = new Discord.Client();
+const player = require("./utils/player");
+fs.readdir("./events/", (err, files) => {
+    if (err) return console.error(err);
+    files.forEach(file => {
+      const event = require(`./events/${file}`);
+      let eventName = file.split(".")[0];
+      client.on(eventName, event.bind(null, client));
+    });
+  });
 client.commands = new Discord.Collection();
 const commandFiles = fs
     .readdirSync("./commands")
-    .filter((file) => file.endsWith(".js"));
+    .filter((file) => file.endsWith(".js") && file.toString() != "reload.js");
 for (const file of commandFiles) {
     const command = require(`./commands/${file}`);
 
@@ -16,8 +25,6 @@ for (const file of commandFiles) {
 }
 var isReady;
 var idPreso;
-
-
 
 client.login(config.token);
 
@@ -32,7 +39,7 @@ client.on("ready", () => {
 
 client.on("warn", console.error);
 
-client.on("disconnect", () => console.log("Just disconnected!"));
+client.on("disconnect", () => fileEdit.edit("isReady", true));
 
 client.on("message", async (message) => {
     // In case its a bot's message
@@ -40,7 +47,12 @@ client.on("message", async (message) => {
     re = new RegExp(/b.*d.*a|g.*m.*n/gi);
     const args = message.content.slice(config.prefix.length).trim().split(/ +/);
     const commandName = args.shift().toLowerCase();
-    const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+    const command =
+        client.commands.get(commandName) ||
+        client.commands.find(
+            (cmd) => cmd.aliases && cmd.aliases.includes(commandName)
+        );
+    if (!message.content.startsWith(config.prefix)) return;
     try {
         command.execute(message, args);
     } catch (error) {
@@ -84,27 +96,27 @@ client.on("message", async (message) => {
     if (message.content.indexOf(config.prefix) !== 0) return;
 });
 
-client.on("guildMemberAdd", (member) => {
-    member.guild.channels
-        .get("680975188581416998")
-        .send(member.user.username + " agora faz parte do motel!");
-    var role = member.guild.roles.find((role) => role.name === "Outsiders");
-    member.addRole(role);
-    member.send(
-        "Olá! Você foi colocado num cargo onde não é possível entrar em canais de voz. Favor contate um " +
-            '"Vice-Dono" ou o "Dono do Motel" e entre no canal de voz "Alone" para que seja atribuído um cargo e você possa ' +
-            "usar o servidor normalmente! :D"
-    );
-    tiago = message.guild.members
-        .filter((user) => user.id === "305838877866721280")
-        .first();
-    tiago.send(
-        `O usuário ${member.user.username} entrou no servidor e quer se registrar!`
-    );
-});
+// client.on("guildMemberAdd", (member) => {
+//     member.guild.channels.cache
+//         .get("680975188581416998")
+//         .send(member.user.username + " agora faz parte do motel!");
+//     var role = member.guild.roles.cache.find((role) => role.name === "Outsiders");
+//     member.addRole(role);
+//     member.send(
+//         "Olá! Você foi colocado num cargo onde não é possível entrar em canais de voz. Favor contate um " +
+//             '"Vice-Dono" ou o "Dono do Motel" e entre no canal de voz "Alone" para que seja atribuído um cargo e você possa ' +
+//             "usar o servidor normalmente! :D"
+//     );
+//     tiago = message.guild.members
+//         .filter((user) => user.id === "305838877866721280")
+//         .first();
+//     tiago.send(
+//         `O usuário ${member.user.username} entrou no servidor e quer se registrar!`
+//     );
+// });
 
 client.on("guildMemberRemove", (member) => {
-    member.guild.channels
+    member.guild.channels.cache
         .get("680975188581416998")
         .send(member.user.username + " fechou sua diária!");
     member.send("Bem vindo ao devaneios! :)");
@@ -124,7 +136,11 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
             // We check if the person that joined the voice channel it's arrested AND if the arrested person
             // didn't just joined the arrested channel (it prevents that the person from being moved infinitely)
             // to the arrested channel.
-            if (idPreso.includes(newMember.id) && !newUserChannel.bot && newUserChannel.id != "597641313180975174") {
+            if (
+                idPreso.includes(newMember.id) &&
+                !newUserChannel.bot &&
+                newUserChannel.id != "597641313180975174"
+            ) {
                 console.log("Passou aqui");
                 newMember.setVoiceChannel("597641313180975174");
                 newMember.send("Você está preso! :(");
@@ -154,38 +170,22 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
 });
 
 async function playQuinta(newUserChannel) {
-    // randint = Math.floor(Math.random() * 2);
-    // if (randint === 1) filepath = "./quintafeiradaledale.mp3";
-    // else filepath = "./resources/sounds/sextaanao.mp3";
-    // playSong(filepath, newUserChannel);
-    console.log("Quinta");
+    randint = Math.floor(Math.random() * 2);
+    let filepath;
+    if (randint === 1) filepath = "./quintafeiradaledale.mp3";
+    else filepath = "./resources/sounds/sextaanao.mp3";
+    player.execute("", filepath, newUserChannel);
 }
 
 async function playSexta(newUserChannel) {
     filepath = "./sextafeirasim.mp3";
-    playSong(filepath, newUserChannel);
+    player.execute("", filepath, newUserChannel);
 }
 
 //that shit do not work
 /* function sleep(milliseconds){
     return new Promise((resolve) => {setTimeout(resolve, milliseconds)});
 } */
-
-async function playSong(filepath, newUserChannel) {
-    if (isReady) {
-        isReady = false;
-        newUserChannel
-            .join()
-            .then((connection) => {
-                const dispatcher = connection.playFile(filepath);
-                dispatcher.on("end", (end) => {
-                    newUserChannel.leave();
-                    isReady = true;
-                });
-            })
-            .catch((err) => console.log(err));
-    }
-}
 
 function get_bicho(numero) {
     bichos = [

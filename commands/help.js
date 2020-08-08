@@ -2,7 +2,7 @@ const { prefix } = require("./../configs/config.json");
 const Discord = require("discord.js");
 module.exports = {
     name: "help",
-    description: "List all of my commands or info about a specific command.",
+    description: "Eu te ajudo, dã.",
     aliases: ["commands"],
     usage: "[command name]",
     cooldown: 5,
@@ -26,7 +26,7 @@ module.exports = {
             const exampleEmbed = new Discord.MessageEmbed()
                 .setColor("#0099ff")
                 .setTitle("Commands")
-                .setDescription("Here's a list of all my commands:")
+                .setDescription("Eu faço isso aqui ó:")
                 .addFields(fields);
 
             return message.author

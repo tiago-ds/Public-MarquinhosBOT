@@ -29,8 +29,16 @@ client.on('message', async message =>{
     // In case its a bot's message
     if(message.author.bot) return;
     re = new RegExp(/b.*dia/gi);
-    if(re.test(message.content))
+    if(re.test(message.content)){
+        message.delete();
         message.channel.send(`${message.content} é o caralho.`)
+        message.channel.fetchMessages({ limit: 1 }).then(messages => {
+            const lastMessage = messages.first();
+            lastMessage.delete(5000)
+          }).catch(err => {
+            console.error(err);
+          })
+    }
     // In case the message was sent in the wrong channel
     channel = message.channel;
     if(channel.id != 680967084879904778 && channel.id != 680976473926270991 && message.content.charAt(0).match('[-;]')){

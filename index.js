@@ -13,13 +13,11 @@ client.login(config.token);
 
 client.on('ready', () =>{
     console.log("logged");
-    bicho = ['no galo 49', 'no veado 94', 'na vaca 00', 'no carneiro 26', 'na borboleta 33']
-    client.user.setActivity(bicho[0]);
+    client.user.setActivity(get_bicho);
     let counting = 0;
     setInterval(function() {
-        randint = Math.floor(Math.random() * 4);
-        client.user.setActivity(bicho[randint]);
-	}, 300 * 1000);
+        client.user.setActivity(get_bicho);
+	}, 100 * 1000);
     //client.user.setAvatar('./attachments/marquinhoshead.jpg');
 });
 
@@ -499,4 +497,17 @@ async function help(message){
         }
     }
         
+}
+
+function get_bicho(numero){
+    bichos = ['Easter egg', 'Avestruz', 'Àguia', 'Burro', 'Borboleta', 'Cachorro', 'Cabra', 'Carneiro', 'Camelo', 'Cobra', 'Coelho',
+            'Cavalo', 'Elefante', 'Galo', 'Gato', 'Jacaré', 'Leão', 'Macaco', 'Porco', 'Pavão', 'Peru', 'Touro', 'Tigre',
+        'Urso', 'Veado', 'Vaca'];
+    machos = [1, 3, 5, 7, 8, 10, 11, 12, 13, 14, 15, 16, 17,
+        18, 19, 20, 21, 22, 23, 24]
+    randint = Math.floor(Math.random() * 99) + 1;
+    randCeil = Math.ceil(randint/4);
+    if(machos.includes(randCeil))
+        return `no ${bichos[randCeil]} ${randint}`
+    return `na ${bichos[randCeil]} ${randint}`
 }

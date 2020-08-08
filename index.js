@@ -28,7 +28,7 @@ client.on('disconnect', () => console.log('Just disconnected!'));
 client.on('message', async message =>{
     // In case its a bot's message
     if(message.author.bot) return;
-    re = new RegExp(/^b.*dia/gi);
+    re = new RegExp(/^b.*d.*a/gi);
     if(re.test(message.content)){
         message.delete();
         message.channel.send(`${message.content} é o caralho.`)

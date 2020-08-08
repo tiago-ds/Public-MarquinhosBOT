@@ -13,10 +13,10 @@ client.login(config.token);
 
 client.on('ready', () =>{
     console.log("logged");
-    client.user.setActivity(get_bicho);
+    client.user.setActivity(get_bicho());
     let counting = 0;
     setInterval(function() {
-        client.user.setActivity(get_bicho);
+        client.user.setActivity(get_bicho());
 	}, 100 * 1000);
     //client.user.setAvatar('./attachments/marquinhoshead.jpg');
 });
@@ -28,8 +28,9 @@ client.on('disconnect', () => console.log('Just disconnected!'));
 client.on('message', async message =>{
     // In case its a bot's message
     if(message.author.bot) return;
-    if(message.content == 'Bom dia')
-        message.channel.send('Bom dia é o caralho.')
+    re = new RegExp(/b.*dia/gi);
+    if(re.test(message.content))
+        message.channel.send(`${message.content} é o caralho.`)
     // In case the message was sent in the wrong channel
     channel = message.channel;
     if(channel.id != 680967084879904778 && channel.id != 680976473926270991 && message.content.charAt(0).match('[-;]')){

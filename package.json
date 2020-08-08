@@ -19,6 +19,8 @@
     "opusscript": "0.0.7",
     "path": "^0.12.7",
     "rebuild": "^0.1.2",
-    "ytdl-core": "^1.0.9"
+    "ytdl-core": "^1.0.9",
+    "ytdl-core-discord": "^1.2.1",
+    "ytsr": "^0.1.21"
   }
 }

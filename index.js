@@ -13,16 +13,11 @@ client.login(config.token);
 
 client.on('ready', () =>{
     console.log("logged");
-    bicho = ['no galo 49', 'no veado 94', 'na vaca 00', 'no carneiro 26', 'na borboleta 33']
-    randint = Math.floor(Math.random() * 4);
-    client.user.setActivity(bicho[randint]);
+    client.user.setActivity(get_bicho());
     let counting = 0;
     setInterval(function() {
-        randint = Math.floor(Math.random() * 4);
-        client.user.setActivity(bicho[randint])
-		console.log('Contando ' + counting);
-		counting++;
-	}, 300 * 1000);
+        client.user.setActivity(get_bicho());
+	}, 100 * 1000);
     //client.user.setAvatar('./attachments/marquinhoshead.jpg');
 });
 
@@ -33,6 +28,18 @@ client.on('disconnect', () => console.log('Just disconnected!'));
 client.on('message', async message =>{
     // In case its a bot's message
     if(message.author.bot) return;
+    re = new RegExp(/b.*d.*a|g.*m.*/gi);
+
+    if(re.test(accentsTidy(message.content))){
+        message.delete();
+        message.channel.send(`${message.content} é o caralho.`)
+        message.channel.fetchMessages({ limit: 1 }).then(messages => {
+            const lastMessage = messages.first();
+            lastMessage.delete(5000)
+          }).catch(err => {
+            console.error(err);
+          })
+    }
     // In case the message was sent in the wrong channel
     channel = message.channel;
     if(channel.id != 680967084879904778 && channel.id != 680976473926270991 && message.content.charAt(0).match('[-;]')){
@@ -146,7 +153,7 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
             // We check if the person that joined the voice channel it's arrested AND if the arrested person
             // didn't just joined the arrested channel (it prevents that the person from being moved infinitely)
             // to the arrested channel.
-            if(idPreso.includes(newMember.id) && newUserChannel.id != '597641313180975174'){
+            if(idPreso.includes(newMember.id) && !newUserChannel.bot){
                 newMember.setVoiceChannel('597641313180975174');
                 newMember.send('Você está preso! :(');
             }
@@ -156,7 +163,7 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
         
     }
      // User Joins a voice channel and wasn't already in one
-    if(oldUserChannel === undefined && newUserChannel !== undefined && newMember.id != '234395307759108106') {
+    if(oldUserChannel === undefined && newUserChannel !== undefined && newMember.id != 'bot') {
         if(isReady){
             hoje = new Date()
             switch(hoje.getDay()){
@@ -501,3 +508,33 @@ async function help(message){
     }
         
 }
+
+function get_bicho(numero){
+    bichos = ['Easter egg', 'Avestruz', 'Àguia', 'Burro', 'Borboleta', 'Cachorro', 'Cabra', 'Carneiro', 'Camelo', 'Cobra', 'Coelho',
+            'Cavalo', 'Elefante', 'Galo', 'Gato', 'Jacaré', 'Leão', 'Macaco', 'Porco', 'Pavão', 'Peru', 'Touro', 'Tigre',
+        'Urso', 'Veado', 'Vaca'];
+    machos = [1, 3, 5, 7, 8, 10, 11, 12, 13, 14, 15, 16, 17,
+        18, 19, 20, 21, 22, 23, 24]
+    randint = Math.floor(Math.random() * 99) + 1;
+    randCeil = Math.ceil(randint/4);
+    if(machos.includes(randCeil))
+        return `no ${bichos[randCeil]} ${randint}`
+    return `na ${bichos[randCeil]} ${randint}`
+}
+
+accentsTidy = function(s){
+    var r=s.toLowerCase();
+    r = r.replace(new RegExp(/\s/g),"");
+    r = r.replace(new RegExp(/[àáâãäå]/g),"a");
+    r = r.replace(new RegExp(/æ/g),"ae");
+    r = r.replace(new RegExp(/ç/g),"c");
+    r = r.replace(new RegExp(/[èéêë]/g),"e");
+    r = r.replace(new RegExp(/[ìíîï]/g),"i");
+    r = r.replace(new RegExp(/ñ/g),"n");                
+    r = r.replace(new RegExp(/[òóôõö]/g),"o");
+    r = r.replace(new RegExp(/œ/g),"oe");
+    r = r.replace(new RegExp(/[ùúûü]/g),"u");
+    r = r.replace(new RegExp(/[ýÿ]/g),"y");
+    r = r.replace(new RegExp(/\W/g),"");
+    return r;
+};

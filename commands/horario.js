@@ -1,3 +1,4 @@
+const player = require("./../utils/player");
 module.exports = {
     name: "horario",
     description: "Te digo o horário. Apenas.",
@@ -8,8 +9,8 @@ module.exports = {
         newUserChannel = message.member.voiceChannel;
         // If its midnight, Marquinhos enter the voice channel and ANNOUNCES that it's OLEO DE MACACO TIME
         if (hoje.getHours() == 0) {
-            filepath = "./macaco.mp3";
-            playSong(filepath, newUserChannel);
+            filepath = "./resource/sounds/macaco.mp3";
+            player.execute(message, filepath, newUserChannel);
         } else {
             // If its not midnight, Marquinhos send the time in the channel
             minutos = hoje.getMinutes();

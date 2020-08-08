@@ -1,27 +1,29 @@
+const fileEdit = require("./../utils/fileEdit");
 module.exports = {
 	name: 'chaos',
 	description: 'Instaura o CHAOS nos canais de voz',
 	execute(message, args) {
         let num;
-        if(isNan(args[0])){
+        if(typeof args[0] !== "number"){
             num = 10;
         }
         else{
             num = args[0];
         }
         // This just gets the voice channel that the user called;
-        var voiceChannel = message.member.voiceChannel;
+        var voiceChannel = message.member.voice.channel
+        isReady = fileEdit.read("isReady");
         if(isReady && voiceChannel){
-            isReady = false;
+            fileEdit.edit("isReady", false);
             // Play song method
             voiceChannel.join().then(connection => {
-                const dispatcher = connection.playFile('./../resources/sounds/caos.mp3');
-                dispatcher.on('end', end => {
+                const dispatcher = connection.play('./resources/sounds/caos.mp3');
+                dispatcher.on('finish', end => {
                     voiceChannel.leave();
                     chaos2(message, num);
                 });
             }).catch(err => console.log(err));
-            isReady = true;
+            fileEdit.edit("isReady", true);
         }
         else {
             // If the person isn't inside a voice channel
@@ -38,14 +40,15 @@ async function chaos2(message, num){
         console.log(error);
     }
     //Gets the voice channel that will (primaly) suffer the chaos
-    voiceChannel = message.member.voiceChannel;
+    voiceChannel = message.member.voice.channel;
     //Gets the list of all voice channels in the guild
-    const voiceChannels = message.guild.channels.filter(c => c.type === 'voice');
+    const voiceChannels = message.guild.channels.cache.filter(c => c.type === 'voice');
     //Gets the list of all users in the voiceChannel
-    activeUsers = voiceChannel.members.filter(user => !user.bot);
+    activeUsers = voiceChannel.members.filter(user => !user.user.bot);
     //Gets the channel that the CHAOS started
     // msgChannel = message.channel;
     //Finally, calls the function chaos3, that will move people around and create REAL chaos
+    counter = 0;
     chaos3(counter, voiceChannel, voiceChannels, activeUsers, num);
  }
 
@@ -58,9 +61,10 @@ async function chaos3(counter, voiceChannel, voiceChannels, activeUsers, num){
             // Here, goes the code to randomly switch channels
             randomKey = activeUsers.randomKey();
             usuario = activeUsers.get(randomKey);
-            usuario.setVoiceChannel(voiceChannels.randomKey());
+            usuario.voice.setChannel(voiceChannels.randomKey());
             // Check if the user disconnected from a voice channel during the recursivity 
-            if(usuario.voiceChannel){
+            if(usuario.voice.channel){
+                console.log(`${usuario.voice.channel}`);
                 // There's the recursivity
                 try {
                     chaos3(counter, voiceChannel, voiceChannels, activeUsers, num);
@@ -76,7 +80,7 @@ async function chaos3(counter, voiceChannel, voiceChannels, activeUsers, num){
         for(x = 0; x < usersArray.length; x++){
             usuario = activeUsers.get(usersArray[x]);
             // Console.log('Deslocando ' + usuario.username + ' para o canal ' + voiceChannel.name + '.');
-            usuario.setVoiceChannel(voiceChannel.id.toString());     
+            usuario.voice.setChannel(voiceChannel.id.toString());     
         }
     }
 }

@@ -1,3 +1,4 @@
+const player = require("./../utils/player");
 module.exports = {
     name: "importunar",
     description: "Eu vou lá atazanar a vida de quem tu quiser.",
@@ -15,17 +16,17 @@ module.exports = {
         }
         switch (randint) {
             case 1:
-                filepath = "./../resources/sounds/miau.mp3";
+                filepath = "./resources/sounds/miau.mp3";
                 break;
             case 2:
-                filepath = "./../resources/sounds/cabra.mp3";
+                filepath = "./resources/sounds/cabra.mp3";
                 break;
             case 3:
-                filepath = "./../resources/sounds/boombam.mp3";
+                filepath = "./resources/sounds/boombam.mp3";
                 break;
         }
         try {
-            playSong(filepath, importunada.voiceChannel);
+            player.execute(message, filepath, importunada.voiceChannel);
         } catch (error) {
             if (!voiceChannel) {
                 console.log("Essa pessoa não está num canal de voz.");

@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "@discordjs/opus": "^0.1.0",
+    "clear-module": "^4.1.1",
     "discord.js": "^12.2.0",
     "enmap": "^5.3.1",
     "ffmpeg": "0.0.4",
@@ -19,6 +20,7 @@
     "opusscript": "0.0.7",
     "path": "^0.12.7",
     "rebuild": "^0.1.2",
+    "winston": "^3.3.3",
     "ytdl-core": "^1.0.9",
     "ytdl-core-discord": "^1.2.1",
     "ytsr": "^0.1.21"

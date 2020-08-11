@@ -1,7 +1,7 @@
 const config = require("./../configs/config.json");
 module.exports = (client, message) => {
     if (message.author.bot) return;
-    re = new RegExp(/b.*d.*a|g.*m.*n/gi);
+    re = new RegExp(/b.*dia/gi);
     //if (message.content.indexOf(config.prefix) !== 0) return;
 
     //if (!cmd) return;

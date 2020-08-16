@@ -2,7 +2,6 @@
 ## Bot do discord desenvolvido em JS
 
 - **Comandos:**
-<<<<<<< HEAD
 	- [!boombam](https://github.com/tiago-ds/MarquinhosBOT/blob/master/commands/boombam.js)
 	- [!cabra](https://github.com/tiago-ds/MarquinhosBOT/blob/master/commands/cabra.js)
 	- [!cavalo](https://github.com/tiago-ds/MarquinhosBOT/blob/master/commands/cavalo.js)
@@ -22,27 +21,22 @@
 	- [!prender](https://github.com/tiago-ds/MarquinhosBOT/blob/master/commands/prender.js)
 	- [!reload](https://github.com/tiago-ds/MarquinhosBOT/blob/master/commands/reload.js)
 	- [!rodaroda](https://github.com/tiago-ds/MarquinhosBOT/blob/master/commands/rodaroda.js)
-=======
-	- !boombam
-	- !cabra
-	- !cavalo
-	- !chaos
-	- !debug
-	- !desprender
-	- !disconnect
-	- !dm
-	- !encarcerados
-	- !help
-	- !horario
-	- !importunar
-	- !inferno
-	- !miau
-	- !moeda
-	- !olavac
-	- !prender
-	- !reload
-	- !rodaroda
->>>>>>> 0e84b603c3ae9a769f6499332c0d4c82ecf91af6
+- **Funções:**
+	- Gerencia de mensagens
+	- Gerencia links
+	- Atribui permissões a novos integrantes
+	- Contextualiza saídas/entradas no servidor
+	- *Distribui amor para todos!* :P
+- **Eventos:**
+	- Heartbeat criativo
+	- Quinta-feira
+	- Sexta-Feira
+	- Bom dia
+- **Futuramente:**
+    - Implementação de DB para gestão de dinheiro interno de servidor
+	- Rodízio de administradores
+	
+![O Marquinhos](https://i.imgur.com/KtfKQ5h.jpg)
 - **Funções:**
 	- Gerencia de mensagens
 	- Gerencia links

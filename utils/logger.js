@@ -40,14 +40,6 @@ const logger = winston.createLogger({
     ),
     transports: [
         new winston.transports.Console({ timestamp: true }),
-<<<<<<< HEAD
-=======
-        new winston.transports.File({
-            filename: serverLogFolder,
-            timestamp: true,
-            level: "info",
-        }),
->>>>>>> 0e84b603c3ae9a769f6499332c0d4c82ecf91af6
     ],
     level: "custom",
 });

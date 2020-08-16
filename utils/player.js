@@ -12,7 +12,11 @@ module.exports = {
             channel
                 .join()
                 .then((connection) => {
+<<<<<<< HEAD
                     const dispatcher = connection.play(inputStream);
+=======
+                    const dispatcher = connection.play(inputStream, options);
+>>>>>>> 0e84b603c3ae9a769f6499332c0d4c82ecf91af6
                     dispatcher.on("finish", (end) => {
                         setTimeout(() => {
                             channel.leave();

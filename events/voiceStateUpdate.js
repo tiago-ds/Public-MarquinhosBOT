@@ -1,5 +1,8 @@
 const Discord = require("discord.js");
+<<<<<<< HEAD
 const fileEdit = require("./../utils/fileEdit")
+=======
+>>>>>>> 0e84b603c3ae9a769f6499332c0d4c82ecf91af6
 const player = require("./../utils/player");
 module.exports = async (oldMember, newMember) => {
     let newUserChannel = newMember.voiceChannel;

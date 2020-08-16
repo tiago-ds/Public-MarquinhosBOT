@@ -6,7 +6,7 @@ module.exports = {
         hoje = new Date().toLocaleString("pt-BR", {
             timeZone: "America/Recife",
         });
-        newUserChannel = message.member.voiceChannel;
+        newUserChannel = message.member.voice.channel;
         // If its midnight, Marquinhos enter the voice channel and ANNOUNCES that it's OLEO DE MACACO TIME
         if (hoje.getHours() == 0) {
             filepath = "./resource/sounds/macaco.mp3";

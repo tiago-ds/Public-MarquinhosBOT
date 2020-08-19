@@ -1,7 +1,7 @@
 const config = require("./../configs/config.json");
-module.exports = (client, message) => {
+module.exports = async (client, message) => {
     if (message.author.bot) return;
-    re = new RegExp(/b.*dia/gi);
+    re = new RegExp(/^b.*d.*a/gi);
     //if (message.content.indexOf(config.prefix) !== 0) return;
 
     //if (!cmd) return;
@@ -22,19 +22,21 @@ module.exports = (client, message) => {
             message.reply("quebrei! :(");
         }
     } else {
-        // if (re.test(accentsTidy(message.content))) {
-        //     message.delete();
-        //     message.channel.send(`${message.content} é o caralho.`);
-        //     message.channel
-        //         .fetchMessages({ limit: 1 })
-        //         .then((messages) => {
-        //             const lastMessage = messages.first();
-        //             lastMessage.delete(5000);
-        //         })
-        //         .catch((err) => {
-        //             console.error(err);
-        //         });
-        // }
+        if (re.test(message.content)) {
+            message.delete();
+            message_sent = await message.channel.send(`${message.content} é o caralho.`);
+            setTimeout(() => {
+                message_sent.delete();
+            }, 5000);
+                //  .fetch.messages({ limit: 1 })
+                //  .then((messages) => {
+                //      const lastMessage = messages.first();
+                //      lastMessage.delete(5000);
+                //  })
+                //  //.catch((err) => {
+                //  //    console.error(err);
+                //  //});
+        }
         // In case the message was sent in the wrong channel
         channel = message.channel;
         if (
@@ -55,20 +57,4 @@ module.exports = (client, message) => {
             message.delete();
         }
     }
-};
-accentsTidy = function (s) {
-    var r = s.toLowerCase();
-    r = r.replace(new RegExp(/\s/g), "");
-    r = r.replace(new RegExp(/[àáâãäå]/g), "a");
-    r = r.replace(new RegExp(/æ/g), "ae");
-    r = r.replace(new RegExp(/ç/g), "c");
-    r = r.replace(new RegExp(/[èéêë]/g), "e");
-    r = r.replace(new RegExp(/[ìíîï]/g), "i");
-    r = r.replace(new RegExp(/ñ/g), "n");
-    r = r.replace(new RegExp(/[òóôõö]/g), "o");
-    r = r.replace(new RegExp(/œ/g), "oe");
-    r = r.replace(new RegExp(/[ùúûü]/g), "u");
-    r = r.replace(new RegExp(/[ýÿ]/g), "y");
-    r = r.replace(new RegExp(/\W/g), "");
-    return r;
 };

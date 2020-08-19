@@ -14,6 +14,10 @@ module.exports = async (client, message) => {
             (cmd) => cmd.aliases && cmd.aliases.includes(commandName)
         );
     if (message.content.startsWith(config.prefix)) {
+        if(!command){
+            message.reply(" esse comando não existe! Digite !help para uma lista de comandos.");
+            return;
+        }
         try {
             console.log(`Executando ${commandName}`);
             command.execute(message, args, client.commands);
@@ -28,14 +32,6 @@ module.exports = async (client, message) => {
             setTimeout(() => {
                 message_sent.delete();
             }, 5000);
-                //  .fetch.messages({ limit: 1 })
-                //  .then((messages) => {
-                //      const lastMessage = messages.first();
-                //      lastMessage.delete(5000);
-                //  })
-                //  //.catch((err) => {
-                //  //    console.error(err);
-                //  //});
         }
         // In case the message was sent in the wrong channel
         channel = message.channel;

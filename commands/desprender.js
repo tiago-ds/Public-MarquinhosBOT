@@ -27,7 +27,7 @@ module.exports = {
                     .first();
             }
             if (solto && idPreso.indexOf(solto.id) != -1) {
-                let admin = message.guild.members
+                let admin = message.guild.members.cache
                     .filter((user) => user.id === "305838877866721280")
                     .first();
                 admin.send(solto.user.username + " foi solto no Devaneios!!");

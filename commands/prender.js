@@ -19,7 +19,7 @@ module.exports = {
         );
         // If we don't find the nickname user, try with his real username
         if (presoCollection.array().length != 1) {
-            presoCollection = message.guild.members.filter(
+            presoCollection = message.guild.members.cache.filter(
                 (user) => user.user.username === nomePreso
             );
         }

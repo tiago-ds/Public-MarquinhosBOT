@@ -14,6 +14,7 @@ module.exports = {
         if (file) {
             clearModule(`./${args[0]}.js`);
             const command = require(`./${file}`);
+            console.log(`Atualizando ${command.name}`);
             commands.set(command.name, command);
         } else {
             message.reply("⚠️ Você deve escrever um comando existente!");

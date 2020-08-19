@@ -15,8 +15,8 @@ module.exports = (client, message) => {
         );
     if (message.content.startsWith(config.prefix)) {
         try {
-            command.execute(message, args, client.commands);
             console.log(`Executando ${commandName}`);
+            command.execute(message, args, client.commands);
         } catch (error) {
             console.error(error);
             message.reply("quebrei! :(");

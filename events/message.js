@@ -16,9 +16,10 @@ module.exports = (client, message) => {
     if (message.content.startsWith(config.prefix)) {
         try {
             command.execute(message, args, client.commands);
+            console.log(`Executando ${commandName}`);
         } catch (error) {
             console.error(error);
-            message.reply("there was an error trying to execute that command!");
+            message.reply("quebrei! :(");
         }
     } else {
         // if (re.test(accentsTidy(message.content))) {

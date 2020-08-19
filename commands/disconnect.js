@@ -1,6 +1,6 @@
 module.exports = {
     name: "disconnect",
-    description: "Desconecta o little marcos do canal de voz",
+    description: "Eu, o grande little marcos, me desconecto do canal de voz",
     execute(message, args) {
         if (message.guild.voiceConnection) {
             message.guild.voiceConnection.disconnect();

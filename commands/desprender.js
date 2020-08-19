@@ -2,7 +2,7 @@ const fileEdit = require("./../utils/fileEdit");
 module.exports = {
     name: "desprender",
     aliases: ["soltar", "liberar"],
-    description: "Default fallback message",
+    description: "Eu realmente preciso explicar?",
     execute(message, args) {
         // Checks if the person who sent the !desprender request its not the arrested one
         // (Also checks if its not the father of Marquinhos :))

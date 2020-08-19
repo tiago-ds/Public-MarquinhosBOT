@@ -11,7 +11,7 @@ module.exports = {
         const { commands } = message.client;
 
         if (!args.length) {
-            let fields = commands.map((command) => {
+            let fields = commands.filter((cmd) => !cmd.hide).map((command) => {
                 const container = {};
 
                 container.name = command.name;
@@ -33,7 +33,7 @@ module.exports = {
                 .send(exampleEmbed)
                 .then(() => {
                     if (message.channel.type === "dm") return;
-                    message.reply("I've sent you a DM with all my commands!");
+                    message.reply("Te enviei uma DM com meus comandos ;)");
                 })
                 .catch((error) => {
                     console.error(

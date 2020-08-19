@@ -5,7 +5,7 @@ module.exports = {
         isReady = fileEdit.read("isReady");
         if (!channel) {
             message.channel.send(
-                "Você deve estar em um canal de voz para usar esse comando!"
+                "Canal de voz indisponível!"
             );
         } else if (isReady) {
             fileEdit.edit("isReady", false);

@@ -17,12 +17,12 @@ module.exports = {
             // If its not one of the above, the person can be (de?)arrested
             nomeSolto = args[0];
             // Try to find a user with a nickname equals to the given name, and put into the collection presoCollection
-            solto = message.guild.members
+            solto = message.guild.members.cache
                 .filter((user) => user.nickname === nomeSolto)
                 .first();
             // If we don't find the nickname user, try with his real username
             if (!solto) {
-                solto = message.guild.members
+                solto = message.guild.members.cache
                     .filter((user) => user.user.username === nomeSolto)
                     .first();
             }

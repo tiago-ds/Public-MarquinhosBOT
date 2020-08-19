@@ -14,7 +14,7 @@ module.exports = {
         // Get the person who should be arrested
         nomePreso = args[0];
         // Try to find a user with a nickname equals to the given name, and put into the collection presoCollection
-        presoCollection = message.guild.members.filter(
+        presoCollection = message.guild.members.cache.filter(
             (user) => user.nickname === nomePreso
         );
         // If we don't find the nickname user, try with his real username

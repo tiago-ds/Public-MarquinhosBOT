@@ -38,7 +38,7 @@ module.exports = async (client, message) => {
         if (
             channel.id != 680967084879904778 &&
             channel.id != 680976473926270991 &&
-            message.content.charAt(0).match("[-;]")
+            message.content.charAt(0).match("[-;=]")
         ) {
             message.author.send(
                 "Este não é o canal apropriado para comandos de bots."

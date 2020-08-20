@@ -3,7 +3,7 @@ const ytdl = require("ytdl-core-discord");
 const ytsr = require("ytsr");
 module.exports = {
     name: "play",
-    description: "Eu toco a musiquinha que tu escolher.",
+    description: "Executa uma música",
     execute(message, args) {
         newUserChannel = message.member.voice.channel;
         searchTerm = args.join(" ");

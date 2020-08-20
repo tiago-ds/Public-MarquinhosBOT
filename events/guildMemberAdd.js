@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 module.exports = async (client, member) => {
     member.guild.channels.cache
-        .get(member.guild.systemChannelID)
+        .get("680975188581416998")
         .send(member.user.username + " agora faz parte do motel!");
     let role = member.guild.roles.cache.find((r) => r.name === "Outsiders");
     member.roles.add(role);
@@ -10,10 +10,10 @@ module.exports = async (client, member) => {
             '"Vice-Dono" ou o "Dono do Motel" e entre no canal de voz "Alone" para que seja atribuído um cargo e você possa ' +
             "usar o servidor normalmente! :D"
     );
-    let admin = member.guild.members.cache
-        .filter((user) => user.id === member.guild.ownerID)
+    tiago = member.guild.members.cache
+        .filter((user) => user.id === "305838877866721280")
         .first();
-    admin.send(
+    tiago.send(
         `O usuário ${member.user.username} entrou no servidor e quer se registrar!`
     );
     const embed = new Discord.MessageEmbed()

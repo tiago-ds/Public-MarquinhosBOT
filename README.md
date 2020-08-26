@@ -38,7 +38,7 @@
 	
 ![O Marquinhos](https://i.imgur.com/KtfKQ5h.jpg)
 
-Para esse amor de Bot, basta clonar o repositório, e configurar o arquivo .env_sample para
+Para usar esse amor de Bot, basta clonar o repositório, e configurar o arquivo .env_sample para
 .env, atribuindo os valores do seu servidor no arquivo principal! Divirta-se com o meu
 bebê! :)
 

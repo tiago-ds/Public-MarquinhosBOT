@@ -5,7 +5,7 @@ module.exports = {
     description: "comando de admin",
     execute(message, args, commands) {
         if (!args || args.length == 0) {
-            message.reply("⚠️ Escreva o comando que deseja dar reload!");
+            message.reply("Diga aí o comando, man ;D");
         }
         const commandFiles = fs
             .readdirSync("./commands")
@@ -17,7 +17,7 @@ module.exports = {
             console.log(`Atualizando ${command.name}`);
             commands.set(command.name, command);
         } else {
-            message.reply("⚠️ Você deve escrever um comando existente!");
+            message.reply("Que comando é esse, doido?");
         }
     },
 };

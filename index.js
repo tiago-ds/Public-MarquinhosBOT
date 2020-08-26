@@ -1,6 +1,7 @@
 const fs = require("fs");
 const Discord = require("discord.js");
 const config = require("./configs/config.json");
+require('dotenv').config();
 
 /**
  * Main function of the bot
@@ -84,7 +85,7 @@ var main = function () {
 
     // Start the bot calling the login function
     // and passing the application token as parameter
-    client.login(config.token);
+    client.login(process.env.TOKEN);
 };
 
 // Start the bot main 

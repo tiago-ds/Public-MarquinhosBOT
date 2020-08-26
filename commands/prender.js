@@ -46,7 +46,7 @@ module.exports = {
                         "!"
                 );
                 // Move the arrested person to the 'alone' channel
-                preso.voice.setChannel("597641313180975174");
+                preso.voice.setChannel(message.guild.afkChannelID);
             } else {
                 message.channel.send(preso.user.username + " já está preso!");
             }

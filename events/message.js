@@ -1,4 +1,4 @@
-const config = require("./../configs/config.json");
+require('dotenv').config();
 module.exports = async (client, message) => {
     if (message.author.bot) return;
     re = new RegExp(/^b.*d.*a/gi);
@@ -6,14 +6,14 @@ module.exports = async (client, message) => {
 
     //if (!cmd) return;
 
-    const args = message.content.slice(config.prefix.length).trim().split(/ +/);
+    const args = message.content.slice(process.env.PREFIX.length).trim().split(/ +/);
     const commandName = args.shift().toLowerCase();
     const command =
         client.commands.get(commandName) ||
         client.commands.find(
             (cmd) => cmd.aliases && cmd.aliases.includes(commandName)
         );
-    if (message.content.startsWith(config.prefix)) {
+    if (message.content.startsWith(process.env.PREFIX)) {
         if(!command){
             message.reply(" esse comando não existe! Digite !help para uma lista de comandos.");
             return;
@@ -36,8 +36,7 @@ module.exports = async (client, message) => {
         // In case the message was sent in the wrong channel
         channel = message.channel;
         if (
-            channel.id != 680967084879904778 &&
-            channel.id != 680976473926270991 &&
+            channel.id != process.env.BOT_CHANNEL_ID &&
             message.content.charAt(0).match("[-;]")
         ) {
             message.author.send(
@@ -46,7 +45,7 @@ module.exports = async (client, message) => {
             message.delete();
         }
         if (
-            channel.id == "709874875162034266" &&
+            channel.id == process.env.LINKS_CHANNEL_ID &&
             !message.content.startsWith("http")
         ) {
             message.author.send("Esse canal é para enviar links! >:(");

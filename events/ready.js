@@ -1,4 +1,3 @@
-const config = require("./../configs/config.json");
 const fileEdit = require("./../utils/fileEdit");
 const animalLottery = require("./../utils/animalLottery");
 module.exports = (client) => {

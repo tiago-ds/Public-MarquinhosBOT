@@ -17,9 +17,9 @@ module.exports = async (client, oldState, newState) => {
             // to the arrested channel.
             if (idPreso.includes(newState.member.id) && 
                 newState.channel &&
-                newState.channel.id != "597641313180975174"
+                newState.channel.id != newState.member.guild.afkChannelID
             ) {
-                newState.member.voice.setChannel("597641313180975174");
+                newState.member.voice.setChannel(newState.member.guild.afkChannelID);
                 newState.member.send("Você está preso! :(");
             }
         } catch (error) {

@@ -9,7 +9,7 @@ module.exports = {
         idPreso = fileEdit.read("idPreso");
         if (
             idPreso.includes(message.author.id) &&
-            message.author.id != "305838877866721280"
+            message.author.id != message.guild.ownerID
         ) {
             message.channel.send("E desde quando preso tem a chave da cela?");
             return;
@@ -28,7 +28,7 @@ module.exports = {
             }
             if (solto && idPreso.indexOf(solto.id) != -1) {
                 let admin = message.guild.members.cache
-                    .filter((user) => user.id === "305838877866721280")
+                    .filter((user) => user.id === message.guild.ownerID)
                     .first();
                 admin.send(solto.user.username + " foi solto no Devaneios!!");
                 idPreso.splice(idPreso.indexOf(solto.id), 1);

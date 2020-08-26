@@ -1,6 +1,5 @@
 const fs = require("fs");
 const Discord = require("discord.js");
-const config = require("./configs/config.json");
 require('dotenv').config();
 
 /**

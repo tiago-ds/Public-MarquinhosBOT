@@ -33,21 +33,22 @@ module.exports = async (client, oldState, newState) => {
         !newState.member.bot
     ) {
         if (isReady) {
-            switch (hoje.getDay().toLocaleString("pt-BR", {
-                timeZone: "America/Recife",
-            })) {
-                case '4':
-                    randint = Math.floor(Math.random() * 2);
-                    let filepath;
-                    if (randint === 1) filepath = "./../resources/sounds/quintafeiradaledale.mp3";
-                    else filepath = "./../resources/sounds/sextaanao.mp3";
-                    player.execute("", filepath, newStateChannel);
-                    break;
-                case '5':
-                    let filepath = "./../resources/sounds/sextafeirasim.mp3";
-                    player.execute("", filepath, newStateChannel);
-                    break;
-            }
+            console.log('wip');
+        //     switch (hoje.getDay().toLocaleString("pt-BR", {
+        //         timeZone: "America/Recife",
+        //     })) {
+        //         case '5':
+        //             randint = Math.floor(Math.random() * 2);
+        //             let filepath;
+        //             if (randint === 1) filepath = "./../resources/sounds/quintafeiradaledale.mp3";
+        //             else filepath = "./../resources/sounds/sextaanao.mp3";
+        //             player.execute("", filepath, newStateChannel);
+        //             break;
+        //         case '4':
+        //             filepath = "./../resources/sounds/sextafeirasim.mp3";
+        //             player.execute("", filepath, newStateChannel);
+        //             break;
+        //     }
         }
     }
 };

@@ -44,7 +44,7 @@ module.exports = async (client, oldState, newState) => {
                     player.execute("", filepath, newStateChannel);
                     break;
                 case '5':
-                    filepath = "./sextafeirasim.mp3";
+                    filepath = "./resources/sounds/sextafeirasim.mp3";
                     player.execute("", filepath, newStateChannel);
                     break;
             }

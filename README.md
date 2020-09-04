@@ -34,6 +34,5 @@
 	- Bom dia
 - **Futuramente:**
     - Implementação de DB para gestão de dinheiro interno de servidor
-	- Rodízio de administradores
 	
 ![O Marquinhos](https://i.imgur.com/KtfKQ5h.jpg)

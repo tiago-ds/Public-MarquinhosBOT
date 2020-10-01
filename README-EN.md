@@ -1,7 +1,7 @@
 # MarquinhosBOT
-## Bot do discord desenvolvido em JS
+## Discord bot developed in JS
 
-- **Comandos:**
+- **Commands:**
 	- [!boombam](commands/boombam.js)
 	- [!cabra](commands/cabra.js)
 	- [!cavalo](commands/cavalo.js)
@@ -21,28 +21,27 @@
 	- [!prender](commands/prender.js)
 	- [!reload](commands/reload.js)
 	- [!rodaroda](commands/rodaroda.js)
-- **Funções:**
-	- Gerencia de mensagens
-	- Gerencia links
-	- Atribui permissões a novos integrantes
-	- Contextualiza saídas/entradas no servidor
-	- *Distribui amor para todos!* :P
-- **Eventos:**
-	- Heartbeat criativo
-	- Quinta-feira
-	- Sexta-Feira
-	- Bom dia
-- **Futuramente:**
-    - Implementação de DB para gestão de dinheiro interno de servidor
-	- Rodízio de administradores
+- **Functions:**
+	- Message management
+	- Links management
+	- Assignment of permissions to new members
+	- Contextualization of I/0 of the server
+	- *Shares love with everybody!* :P
+- **Events:**
+	- Creative Heartbeat
+	- Thursday
+	- Friday
+	- Good Morning
+- **To Do:**
+	- Database implementation for server internal currency management
+	- Rotation of administrators
 	
-![O Marquinhos](https://i.imgur.com/KtfKQ5h.jpg)
+![The Marquinhos](https://i.imgur.com/KtfKQ5h.jpg)
 
-Para usar esse amor de Bot, basta clonar o repositório, e configurar o arquivo .env_sample para
-.env, atribuindo os valores do seu servidor no arquivo principal! Divirta-se com o meu
-bebê! :)
+To use this cute bot, just clone this repository and save the file ``.env_sample`` to ``.env`` with the values of your server.
+Have fun with my baby! :)
 
-- **Contribuidores:**
+- **Contributors:**
 <table>
 	<tr>
 		<td align="center">

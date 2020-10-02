@@ -10,11 +10,11 @@ module.exports = {
                 .first();
         console.log(`Removendo a role de admin de ${nowAdmin.user.username}.`);
         nowAdmin.roles.remove(adminRole);
-        msg = await nowAdmin.send("O mundo gira! Você perdeu seu admin.").delete(5000);
-        msg.delete({timeout: 120000});
+        msg = await nowAdmin.send("O mundo gira! Você perdeu seu admin.");
+        msg.delete({timeout: 10000});
         console.log(`Adicionando a role de  admin para ${nextAdmin.user.username}`);
         nextAdmin.roles.add(adminRole);
         msg = await nextAdmin.send("Você está na roleta dos admins! É a sua vez agora :)");
-        msg.delete({timeout: 120000});
+        msg.delete({timeout: 10000});
     }
 };

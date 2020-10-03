@@ -10,7 +10,7 @@ module.exports = {
         //message.delete();
         let obj;
         if(args[0] > 3){
-            message.chanel.send('Danouse, irmão. Até 3 eu até dou, mas aí tu avacalhou.');
+            message.channel.send('Danousse, irmão. Até 3 eu até dou, mas aí tu avacalhou.');
         }else{
             if(args[1].match('filme')){
                 obj = await digaFilme();
@@ -18,13 +18,15 @@ module.exports = {
                 obj = await digaSerie();
             }else{
                 message.channel.send(`Tu quer que eu te indique ${args[1]} mesmo?`
-                + ` Eu só sei de Filme ou série.`);
+                + ` Eu só sei de filme ou série.`);
             }
         }
-        
-
-        await message.channel.send(await criarEmbed(obj))
-        .catch((err) => console.log(err));
+        if(obj.title != ''){
+            await message.channel.send(await criarEmbed(obj))
+            .catch((err) => console.log(err));
+        }else{
+            await message.channel.send("Deu algo errado aí. Tenta de novo, eu acho.");
+        }
         //message.channel.send(`Que tal assistir ${filme.title}?\nAqui está uma descrição: ${filme.overview}\n`);
     },
 };

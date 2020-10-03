@@ -12,15 +12,13 @@ module.exports = (client) => {
     }, 100 * 1000);
     var counter = 0;
     let guild = client.guilds.cache.find((guild) => guild.name === process.env.GUILD_NAME);
-    setInterval(nextAdm(), 6 * 3600000);
+    /*setInterval(async function () {
+        try {
+            await roleta.roulette(counter, guild);
+        } catch (error) {
+            console.log(error)
+        }
+        counter = (counter + 1)%5;
+    }, 6 * 3600000);*/
     // 6 hours * 1 hour in milliseconds
 };
-
-async function nextAdm(){
-    try {
-        await roleta.roulette(counter, guild);
-    } catch (error) {
-        console.log(error)
-    }
-    counter = (counter + 1)%5;
-}

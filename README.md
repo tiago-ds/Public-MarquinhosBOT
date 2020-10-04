@@ -2,12 +2,14 @@
 ## Bot do discord desenvolvido em JS
 
 - **Comandos:**
+	- [!anom](commands/anom.js)
 	- [!boombam](commands/boombam.js)
 	- [!cabra](commands/cabra.js)
 	- [!cavalo](commands/cavalo.js)
 	- [!chaos](commands/chaos.js)
 	- [!debug](commands/debug.js)
 	- [!desprender](commands/desprender.js)
+	- [!diga](commands/diga.js)
 	- [!disconnect](commands/disconnect.js)
 	- [!dm](commands/dm.js)
 	- [!encarcerados](commands/encarcerados.js)
@@ -15,17 +17,20 @@
 	- [!horario](commands/horario.js)
 	- [!importunar](commands/importunar.js)
 	- [!inferno](commands/inferno.js)
+	- [!kkj](commands/kkj.js)
 	- [!miau](commands/miau.js)
 	- [!moeda](commands/moeda.js)
 	- [!olavac](commands/olavac.js)
 	- [!prender](commands/prender.js)
+	- [!rauauauda](commands/rauauauda.js)
 	- [!reload](commands/reload.js)
 	- [!rodaroda](commands/rodaroda.js)
 - **Funções:**
-	- Gerencia de mensagens
+	- Gerencia mensagens
 	- Gerencia links
 	- Atribui permissões a novos integrantes
 	- Contextualiza saídas/entradas no servidor
+	- Te recomenda coisas
 	- *Distribui amor para todos!* :P
 - **Eventos:**
 	- Heartbeat criativo
@@ -34,13 +39,12 @@
 	- Bom dia
 - **Futuramente:**
     - Implementação de DB para gestão de dinheiro interno de servidor
-	- Rodízio de administradores
+	- Implementação de parâmetros no !diga para especificar seu gosto
 	
 ![O Marquinhos](https://i.imgur.com/KtfKQ5h.jpg)
 
 Para usar esse amor de Bot, basta clonar o repositório, e configurar o arquivo .env_sample para
-.env, atribuindo os valores do seu servidor no arquivo principal! Divirta-se com o meu
-bebê! :)
+.env, atribuindo os valores do seu servidor no arquivo principal. Além disso, altere o arquivo adminroulette.json e o admins.json para seus amigos de confiança! Divirta-se com o meu bebê! :)
 
 - **Contribuidores:**
 <table>

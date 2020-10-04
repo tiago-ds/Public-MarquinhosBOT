@@ -20,6 +20,7 @@
 	- [!kkj](commands/kkj.js)
 	- [!miau](commands/miau.js)
 	- [!moeda](commands/moeda.js)
+	- [!mover-todos](commands/mover-todos.js)
 	- [!olavac](commands/olavac.js)
 	- [!prender](commands/prender.js)
 	- [!rauauauda](commands/rauauauda.js)

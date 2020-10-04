@@ -33,21 +33,24 @@ module.exports = async (client, oldState, newState) => {
         !newState.member.bot
     ) {
         if (isReady) {
+            console.log('wip');
+            /*let filepath;
             switch (hoje.getDay().toLocaleString("pt-BR", {
                 timeZone: "America/Recife",
             })) {
                 case '4':
                     randint = Math.floor(Math.random() * 2);
-                    let filepath;
-                    if (randint === 1) filepath = "./quintafeiradaledale.mp3";
-                    else filepath = "./resources/sounds/sextaanao.mp3";
+                    if (randint === 1) 
+                       filepath = "./../resources/sounds/quintafeiradaledale.mp3";
+                    else 
+                       filepath = "./../resources/sounds/sextaanao.mp3";
                     player.execute("", filepath, newStateChannel);
                     break;
                 case '5':
-                    filepath = "./sextafeirasim.mp3";
+                    filepath = "./../resources/sounds/sextafeirasim.mp3";
                     player.execute("", filepath, newStateChannel);
                     break;
-            }
+            }*/
         }
     }
 };

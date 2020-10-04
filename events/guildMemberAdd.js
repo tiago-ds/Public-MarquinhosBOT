@@ -27,5 +27,5 @@ module.exports = async (client, member) => {
         })
         .setTimestamp()
         .setFooter("Data de entrada", client.user.avatarURL);
-    member.guild.channels.cache.get(process.env.RULES_CHANNEL_ID).send({ embed });
+    member.guild.channels.cache.get(process.env.NEWCOMERS_CHANNEL_ID).send({ embed });
 };

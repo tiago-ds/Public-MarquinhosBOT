@@ -20,6 +20,7 @@
 	- [!kkj](commands/kkj.js)
 	- [!miau](commands/miau.js)
 	- [!moeda](commands/moeda.js)
+	- [!mover-todos](commands/mover-todos.js)
 	- [!olavac](commands/olavac.js)
 	- [!prender](commands/prender.js)
 	- [!rauauauda](commands/rauauauda.js)
@@ -44,7 +45,8 @@
 ![O Marquinhos](https://i.imgur.com/KtfKQ5h.jpg)
 
 Para usar esse amor de Bot, basta clonar o repositório, e configurar o arquivo .env_sample para
-.env, atribuindo os valores do seu servidor no arquivo principal. Além disso, altere o arquivo adminroulette.json e o admins.json para seus amigos de confiança! Divirta-se com o meu bebê! :)
+.env, atribuindo os valores do seu servidor no arquivo principal! Divirta-se com o meu
+bebê! :)
 
 - **Contribuidores:**
 <table>

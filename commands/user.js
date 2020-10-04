@@ -1,5 +1,3 @@
-const roleta = require('./../utils/adminRoulette');
-const { TIMEOUT } = require('dns');
 module.exports = {
     name: "user",
     description: "admin only.",

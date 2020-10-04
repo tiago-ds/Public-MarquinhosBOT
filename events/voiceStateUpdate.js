@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const fileEdit = require("./../utils/fileEdit")
+const fileEdit = require("./../utils/fileEdit");
 const player = require("./../utils/player");
 module.exports = async (client, oldState, newState) => {
     let newStateChannel = newState.channel;
@@ -15,11 +15,14 @@ module.exports = async (client, oldState, newState) => {
             // We check if the person that joined the voice channel it's arrested AND if the arrested person
             // didn't just joined the arrested channel (it prevents that the person from being moved infinitely)
             // to the arrested channel.
-            if (idPreso.includes(newState.member.id) && 
+            if (
+                idPreso.includes(newState.member.id) &&
                 newState.channel &&
                 newState.channel.id != newState.member.guild.afkChannelID
             ) {
-                newState.member.voice.setChannel(newState.member.guild.afkChannelID);
+                newState.member.voice.setChannel(
+                    newState.member.guild.afkChannelID
+                );
                 newState.member.send("Você está preso! :(");
             }
         } catch (error) {
@@ -33,24 +36,26 @@ module.exports = async (client, oldState, newState) => {
         !newState.member.bot
     ) {
         if (isReady) {
-            console.log('wip');
-            /*let filepath;
-            switch (hoje.getDay().toLocaleString("pt-BR", {
-                timeZone: "America/Recife",
-            })) {
-                case '4':
+            let filepath;
+            let test = 4;
+            switch (
+                hoje.getDay().toLocaleString("pt-BR", {
+                   timeZone: "America/Recife",
+                })
+            ) {
+                case "4":
                     randint = Math.floor(Math.random() * 2);
-                    if (randint === 1) 
-                       filepath = "./../resources/sounds/quintafeiradaledale.mp3";
-                    else 
-                       filepath = "./../resources/sounds/sextaanao.mp3";
+                    if (randint === 1)
+                        filepath =
+                            "./resources/sounds/quintafeiradaledale.mp3";
+                    else filepath = "./resources/sounds/sextaanao.mp3";
                     player.execute("", filepath, newStateChannel);
                     break;
-                case '5':
-                    filepath = "./../resources/sounds/sextafeirasim.mp3";
+                case "5":
+                    filepath = "./resources/sounds/sextafeirasim.mp3";
                     player.execute("", filepath, newStateChannel);
                     break;
-            }*/
+            }
         }
     }
 };

@@ -6,6 +6,7 @@ require('dotenv').config();
 module.exports = {
     name: "diga",
     description: "Eu te recomendo um filme ou uma série :)",
+    usage: " <1 a 3> <series ou filmes>",
     async execute(message, args) {
         //message.delete();
         let obj;

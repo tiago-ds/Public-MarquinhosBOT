@@ -3,6 +3,7 @@ const clearModule = require("clear-module");
 module.exports = {
     name: "reload",
     description: "comando de admin",
+    hide: true,
     execute(message, args, commands) {
         if (!args || args.length == 0) {
             message.reply("Diga aí o comando, man ;D");

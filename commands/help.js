@@ -1,11 +1,11 @@
 require('dotenv').config();
-const { prefix } = process.env.PREFIX;
+
 const Discord = require("discord.js");
 module.exports = {
     name: "help",
     description: "Eu te ajudo, dã.",
     aliases: ["commands"],
-    usage: "[command name]",
+    usage: " <nome do comando>",
     cooldown: 5,
     execute(message, args) {
         const data = [];
@@ -57,13 +57,13 @@ module.exports = {
         let fields;
         try{
             fields = [
-                {"name":"Aliases" , "value":command.aliases.join("| ")},
-                {"name":"Usage", "value":`${prefix}${command.name}`}
+                {"name":"Aliases" , "value":command.aliases},
+                {"name":"Usage", "value":`${process.env.PREFIX}${command.name} ${command.usage}`}
             ];
         }catch(e){
             console.log(e);
             fields = [
-                {"name":"Usage", "value":`${prefix}${command.name}`}
+                {"name":"Usage", "value":`${process.env.PREFIX}${command.name} ${command.usage}`}
             ];
         }
         

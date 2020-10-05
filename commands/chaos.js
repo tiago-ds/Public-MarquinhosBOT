@@ -1,7 +1,7 @@
 const fileEdit = require("./../utils/fileEdit");
 module.exports = {
 	name: 'chaos',
-	description: 'Instaura o CHAOS nos canais de voz',
+    description: 'Instaura o CHAOS nos canais de voz',
 	execute(message, args) {
         let num;
         if(typeof args[0] !== "number"){

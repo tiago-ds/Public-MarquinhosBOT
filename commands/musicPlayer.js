@@ -4,6 +4,7 @@ const ytsr = require("ytsr");
 module.exports = {
     name: "play",
     description: "Executa uma música",
+    usage: " <nome da musica>",
     execute(message, args) {
         newUserChannel = message.member.voice.channel;
         searchTerm = args.join(" ");

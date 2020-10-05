@@ -3,7 +3,7 @@ const fileEdit = require("./../utils/fileEdit");
 module.exports = {
     name: "encarcerados",
     aliases: ["presos"],
-    description: "Te dou uma lista de encarcerados",
+    description: "Te dou uma lista de encarcerados. (Tá em código!)",
     execute(message, args) {
         lista = "";
         idPreso = fileEdit.read("idPreso");

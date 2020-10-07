@@ -6,7 +6,7 @@ module.exports = {
     execute(message, args) {
         // Checks if the person who sent the !desprender request its not the arrested one
         // (Also checks if its not the father of Marquinhos :))
-        idPreso = fileEdit.read("idPreso");
+        idPreso = fileEdit.read("idPreso", "global");
         if (
             idPreso.includes(message.author.id) &&
             message.author.id != message.guild.ownerID
@@ -32,7 +32,7 @@ module.exports = {
                     .first();
                 admin.send(solto.user.username + " foi solto no Devaneios!!");
                 idPreso.splice(idPreso.indexOf(solto.id), 1);
-                fileEdit.edit("idPreso", idPreso);
+                fileEdit.edit("idPreso", idPreso, "global");
                 try {
                     solto.send("Você foi solto no Devaneios!! :)");
                 } catch (error) {

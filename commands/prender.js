@@ -23,11 +23,11 @@ module.exports = {
                 (user) => user.user.username === nomePreso
             );
         }
-        idPreso = fileEdit.read("idPreso");
+        idPreso = fileEdit.read("idPreso", "global");
         preso = presoCollection.first();
         if (preso.user.username == "MarquinhosBOT") {
             idPreso.push(message.author.id);
-            fileEdit.edit("idPreso", idPreso);
+            fileEdit.edit("idPreso", idPreso, "global");
             message.channel.send("Trouxa, eu sou filho do Rei :P");
             return;
         }
@@ -37,7 +37,7 @@ module.exports = {
             if (!idPreso.includes(preso.id)) {
                 // Then the id its assigned for the person who'll be arrested
                 idPreso.push(preso.id);
-                fileEdit.edit("idPreso", idPreso);
+                fileEdit.edit("idPreso", idPreso, "global");
                 // Here we warn to the sent message's channel that the person will be arrested
                 message.channel.send(
                     message.author.username +

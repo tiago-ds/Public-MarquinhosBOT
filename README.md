@@ -2,12 +2,14 @@
 ## Bot do discord desenvolvido em JS
 
 - **Comandos:**
+	- [!anom](commands/anom.js)
 	- [!boombam](commands/boombam.js)
 	- [!cabra](commands/cabra.js)
 	- [!cavalo](commands/cavalo.js)
 	- [!chaos](commands/chaos.js)
 	- [!debug](commands/debug.js)
 	- [!desprender](commands/desprender.js)
+	- [!diga](commands/diga.js)
 	- [!disconnect](commands/disconnect.js)
 	- [!dm](commands/dm.js)
 	- [!encarcerados](commands/encarcerados.js)
@@ -15,17 +17,21 @@
 	- [!horario](commands/horario.js)
 	- [!importunar](commands/importunar.js)
 	- [!inferno](commands/inferno.js)
+	- [!kkj](commands/kkj.js)
 	- [!miau](commands/miau.js)
 	- [!moeda](commands/moeda.js)
+	- [!mover-todos](commands/mover-todos.js)
 	- [!olavac](commands/olavac.js)
 	- [!prender](commands/prender.js)
+	- [!rauauauda](commands/rauauauda.js)
 	- [!reload](commands/reload.js)
 	- [!rodaroda](commands/rodaroda.js)
 - **Funções:**
-	- Gerencia de mensagens
+	- Gerencia mensagens
 	- Gerencia links
 	- Atribui permissões a novos integrantes
 	- Contextualiza saídas/entradas no servidor
+	- Te recomenda coisas
 	- *Distribui amor para todos!* :P
 - **Eventos:**
 	- Heartbeat criativo
@@ -34,7 +40,7 @@
 	- Bom dia
 - **Futuramente:**
     - Implementação de DB para gestão de dinheiro interno de servidor
-	- Rodízio de administradores
+	- Implementação de parâmetros no !diga para especificar seu gosto
 	
 ![O Marquinhos](https://i.imgur.com/KtfKQ5h.jpg)
 

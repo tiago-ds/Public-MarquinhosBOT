@@ -2,12 +2,14 @@
 ## Discord bot developed in JS
 
 - **Commands:**
+	- [!anom](commands/anom.js)
 	- [!boombam](commands/boombam.js)
 	- [!cabra](commands/cabra.js)
 	- [!cavalo](commands/cavalo.js)
 	- [!chaos](commands/chaos.js)
 	- [!debug](commands/debug.js)
 	- [!desprender](commands/desprender.js)
+	- [!diga](commands/diga.js)
 	- [!disconnect](commands/disconnect.js)
 	- [!dm](commands/dm.js)
 	- [!encarcerados](commands/encarcerados.js)
@@ -15,10 +17,12 @@
 	- [!horario](commands/horario.js)
 	- [!importunar](commands/importunar.js)
 	- [!inferno](commands/inferno.js)
+	- [!kkj](commands/kkj.js)
 	- [!miau](commands/miau.js)
 	- [!moeda](commands/moeda.js)
 	- [!olavac](commands/olavac.js)
 	- [!prender](commands/prender.js)
+	- [!rauauauda](commands/rauauauda.js)
 	- [!reload](commands/reload.js)
 	- [!rodaroda](commands/rodaroda.js)
 - **Functions:**
@@ -26,6 +30,7 @@
 	- Links management
 	- Assignment of permissions to new members
 	- Contextualization of I/0 of the server
+	- Recommends you films and series
 	- *Shares love with everybody!* :P
 - **Events:**
 	- Creative Heartbeat
@@ -34,11 +39,11 @@
 	- Good Morning
 - **To Do:**
 	- Database implementation for server internal currency management
-	- Rotation of administrators
+	- Parameters implementation for specify your taste in !diga
 	
 ![The Marquinhos](https://i.imgur.com/KtfKQ5h.jpg)
 
-To use this cute bot, just clone this repository and save the file ``.env_sample`` to ``.env`` with the values of your server.
+To use this cute bot, just clone this repository and save the file ``.env_sample`` to ``.env`` with the values of your server. Also, make sure you change the adminRoulette.json and the admins.json to your trusted friends. That's it!
 Have fun with my baby! :)
 
 - **Contributors:**

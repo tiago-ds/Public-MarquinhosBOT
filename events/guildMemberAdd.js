@@ -12,7 +12,7 @@ module.exports = async (client, member) => {
             "usar o servidor normalmente! :D"
     );
     let admin = member.guild.members.cache
-        .filter((user) => user.id === guild.ownerID)
+        .filter((user) => user.id === member.guild.ownerID)
         .first();
     admin.send(
         `O usuário ${member.user.username} entrou no servidor e quer se registrar!`
@@ -27,5 +27,5 @@ module.exports = async (client, member) => {
         })
         .setTimestamp()
         .setFooter("Data de entrada", client.user.avatarURL);
-    member.guild.channels.cache.get(process.env.RULES_CHANNEL_ID).send({ embed });
+    member.guild.channels.cache.get(process.env.NEWCOMERS_CHANNEL_ID).send({ embed });
 };

@@ -14,6 +14,7 @@ module.exports = (client) => {
     let guild = client.guilds.cache.find((guild) => guild.name === process.env.GUILD_NAME);
     setInterval(async function () {
         try {
+            console.log(`O counter está no valor de ${counter}`);
             await roleta.roulette(counter, guild);
         } catch (error) {
             console.log(error)

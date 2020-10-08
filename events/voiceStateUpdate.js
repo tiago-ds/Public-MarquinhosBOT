@@ -1,6 +1,5 @@
 const Discord = require("discord.js");
-const manage = require("./../utils/management").manage
-const fileEdit = require("./../utils/fileEdit");
+const manage = require("./../utils/management").manage;
 const player = require("./../utils/player");
 module.exports = async (client, oldState, newState) => {
     let newStateChannel = newState.channel;

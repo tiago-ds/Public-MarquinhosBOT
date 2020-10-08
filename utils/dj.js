@@ -1,5 +1,6 @@
 const ytdl = require("ytdl-core");
-
+const manage = require("./management").manage
+const Discord = require("discord.js");
 class Dj {
     musicQueue;
     audioQueue;
@@ -25,8 +26,9 @@ class Dj {
         this.playingMusic = true;
         newUserChannel
             .join()
-            .then((connection) => {
+            .then( async (connection) => {
                 const video_id = this.musicQueue[0].link;
+                
                 this.music = this.musicQueue[0];
                 this.musicDispatcher = connection.play(
                     ytdl(video_id, {
@@ -36,6 +38,10 @@ class Dj {
                     }),
                     { seek: seek }
                 );
+                manage.nowPlaying = criarEmbed("Tocando agora");
+                manage.nowPlaying.addField(this.musicQueue[0].title, this.musicQueue[0].duration);
+                manage.nowPlayingRef.delete();
+                manage.nowPlayingRef = await manage.nowPlayingRef.channel.send(manage.nowPlaying);
                 this.seek = 0;
                 this.musicDispatcher.setVolume(0.4);
                 this.titlePlaying = this.musicQueue[0].title;
@@ -107,6 +113,14 @@ class Dj {
                 channel.leave();
             });
     }
+    
+}
+
+function criarEmbed(title) {
+    let titulo = `${title}`;
+    let embed = new Discord.MessageEmbed().setTitle(titulo).setColor("#0099ff");
+    return embed;
 }
 
 module.exports.dj = new Dj();
+

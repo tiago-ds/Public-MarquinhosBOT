@@ -1,4 +1,4 @@
-const fileEdit = require("./../utils/fileEdit");
+const manage = require("./../utils/management").manage;
 module.exports = {
     name: "desprender",
     aliases: ["soltar", "liberar"],
@@ -6,9 +6,8 @@ module.exports = {
     execute(message, args) {
         // Checks if the person who sent the !desprender request its not the arrested one
         // (Also checks if its not the father of Marquinhos :))
-        idPreso = fileEdit.read("idPreso", "global");
         if (
-            idPreso.includes(message.author.id) &&
+            manage.idPreso.includes(message.author.id) &&
             message.author.id != message.guild.ownerID
         ) {
             message.channel.send("E desde quando preso tem a chave da cela?");
@@ -26,13 +25,12 @@ module.exports = {
                     .filter((user) => user.user.username === nomeSolto)
                     .first();
             }
-            if (solto && idPreso.indexOf(solto.id) != -1) {
+            if (solto && manage.idPreso.indexOf(solto.id) != -1) {
                 let admin = message.guild.members.cache
                     .filter((user) => user.id === message.guild.ownerID)
                     .first();
                 admin.send(solto.user.username + " foi solto no Devaneios!!");
-                idPreso.splice(idPreso.indexOf(solto.id), 1);
-                fileEdit.edit("idPreso", idPreso, "global");
+                manage.idPreso.splice(manage.idPreso.indexOf(solto.id), 1);
                 try {
                     solto.send("Você foi solto no Devaneios!! :)");
                 } catch (error) {

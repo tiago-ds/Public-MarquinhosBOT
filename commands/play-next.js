@@ -1,10 +1,7 @@
-const manage = require("./../utils/management").manage;
-const searcher = require("./../utils/youtubeSearch");
-const dj = require("./../utils/dj").dj;
-const Discord = require("discord.js");
+const dj = require("../utils/dj").dj;
 module.exports = {
-    name: "play",
-    description: "Executa uma música",
+    name: "play-next",
+    description: "Adiciona uma música ao topo da fila",
     async execute(message, args) {
         let newUserChannel = message.member.voice.channel;
         let searchTerm = args.join(" ");
@@ -25,17 +22,11 @@ module.exports = {
                 manage.nowPlaying.addField(result.title, result.duration);
                 manage.nowPlayingRef = await message.channel.send(manage.nowPlaying);
             } else {
-                dj.musicQueue.push(result);
-                let newEmbed = criarEmbed("Adicionado a fila");
+                dj.musicQueue.unshift(result);
+                let newEmbed = criarEmbed("Adicionado ao topo da fila");
                 newEmbed.addField(result.title, result.duration);
                 message.channel.send(newEmbed);
             }
         }
     },
 };
-
-function criarEmbed(title) {
-    let titulo = `${title}`;
-    let embed = new Discord.MessageEmbed().setTitle(titulo).setColor("#0099ff");
-    return embed;
-}

@@ -13,8 +13,8 @@ module.exports = {
         msg = await nowAdmin.send("O mundo gira! Você perdeu seu admin.");
         msg.delete({timeout: 10000});
         console.log(`Adicionando a role de  admin para ${nextAdmin.user.username}`);
-        nextAdmin.roles.add(adminRole);
         msg = await nextAdmin.send("Você está na roleta dos admins! É a sua vez agora :)");
         msg.delete({timeout: 10000});
+        nextAdmin.roles.add(adminRole);
     }
 };

@@ -1,7 +1,7 @@
 require('dotenv').config();
 module.exports = async (client, message) => {
     if (message.author.bot) return;
-    re = new RegExp(/^b*. dia/gi);
+    re = new RegExp(/^b*.dia/gi);
     re2 = new RegExp(/(^[Pp]arab[ée]ns.*[Mm]arquinhos)/gi);
     //if (message.content.indexOf(config.prefix) !== 0) return;
 

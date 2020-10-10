@@ -2,6 +2,7 @@ require('dotenv').config();
 module.exports = async (client, message) => {
     if (message.author.bot) return;
     re = new RegExp(/^b.*d.*a/gi);
+    re2 = new RegExp(/(^[Pp]arab[ée]ns.*[Mm]arquinhos)/gi);
     //if (message.content.indexOf(config.prefix) !== 0) return;
 
     //if (!cmd) return;
@@ -32,6 +33,8 @@ module.exports = async (client, message) => {
             setTimeout(() => {
                 message_sent.delete();
             }, 5000);
+        } else if(re2.test(message.content)){
+            await message.reply("parabéns pra VOCÊ! Você é incrível! :)");
         }
         // In case the message was sent in the wrong channel
         channel = message.channel;

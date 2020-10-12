@@ -26,6 +26,18 @@
 	- [!rauauauda](commands/rauauauda.js)
 	- [!reload](commands/reload.js)
 	- [!rodaroda](commands/rodaroda.js)
+	- [!play](commands/play.js)
+	- [!pause](commands/pause.js)
+	- [!search](commands/search.js)
+	- [!resume](commands/resume.js)
+	- [!volume](commands/volume.js)
+	- [!skip](commands/skip.js)
+	- [!queue](commands/queue.js)
+	- [!clear-queue](commands/clearQueue.js)
+	- [!move](commands/move.js)
+	- [!shuffle](commands/shuffle.js)
+	- [!remove](commands/remove.js)
+	- [!next-play](commands/play-next.js)
 - **Funções:**
 	- Gerencia mensagens
 	- Gerencia links
@@ -72,6 +84,17 @@ bebê! :)
 			</a>
 			<br />
 			<a href="https://github.com/tiago-ds/Public-MarquinhosBOT/commits?author=guilhermeasper" title="Code">💻</a>
+		</td>
+		<td align="center">
+			<a href="https://github.com/guilhermeasper">
+				<img src="https://avatars.githubusercontent.com/u/44367174?v=3?s=100" width="100px;" alt=""/>
+				<br />
+				<sub>
+					<b>Giancarlo Fontela da Luz</b>
+				</sub>
+			</a>
+			<br />
+			<a href="https://github.com/tiago-ds/Public-MarquinhosBOT/commits?author=Giancarl021" title="Code">💻</a>
 		</td>
 	</tr>
 </table>

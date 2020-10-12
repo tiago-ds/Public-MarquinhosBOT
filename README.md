@@ -86,7 +86,7 @@ bebê! :)
 			<a href="https://github.com/tiago-ds/Public-MarquinhosBOT/commits?author=guilhermeasper" title="Code">💻</a>
 		</td>
 		<td align="center">
-			<a href="https://github.com/guilhermeasper">
+			<a href="https://github.com/Giancarl021">
 				<img src="https://avatars.githubusercontent.com/u/44367174?v=3?s=100" width="100px;" alt=""/>
 				<br />
 				<sub>
@@ -95,6 +95,17 @@ bebê! :)
 			</a>
 			<br />
 			<a href="https://github.com/tiago-ds/Public-MarquinhosBOT/commits?author=Giancarl021" title="Code">💻</a>
+		</td>
+		<td align="center">
+			<a href="https://github.com/Erick2280">
+				<img src="https://avatars.githubusercontent.com/u/5215968?v=3?s=100" width="100px;" alt=""/>
+				<br />
+				<sub>
+					<b>Erick Almeida</b>
+				</sub>
+			</a>
+			<br />
+			<a href="https://github.com/tiago-ds/Public-MarquinhosBOT/commits?author=Erick2280" title="Code">💻</a>
 		</td>
 	</tr>
 </table>

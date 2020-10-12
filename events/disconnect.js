@@ -1,3 +1,3 @@
 module.exports = (client) => {
-    fileEdit.edit("isReady", true);
+    console.log("disconnected");
 };

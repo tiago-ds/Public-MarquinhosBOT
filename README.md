@@ -83,5 +83,16 @@ Para usar esse amor de Bot, basta clonar o repositório, e configurar o arquivo 
 			<br />
 			<a href="https://github.com/tiago-ds/Public-MarquinhosBOT/commits?author=guilhermeasper" title="Code">💻</a>
 		</td>
+		<td align="center">
+			<a href="https://github.com/guilhermeasper">
+				<img src="https://avatars.githubusercontent.com/u/44367174?v=3?s=100" width="100px;" alt=""/>
+				<br />
+				<sub>
+					<b>Giancarlo Fontela da Luz</b>
+				</sub>
+			</a>
+			<br />
+			<a href="https://github.com/tiago-ds/Public-MarquinhosBOT/commits?author=Giancarl021" title="Code">💻</a>
+		</td>
 	</tr>
 </table>

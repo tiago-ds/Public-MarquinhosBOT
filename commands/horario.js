@@ -4,7 +4,7 @@ module.exports = {
     description: "Te digo o horário. Apenas.",
     execute(message, args) {
         let hoje = new Date();
-        let horas = hoje.getHours() + 3;
+        let horas = hoje.getHours() - 3;
         newUserChannel = message.member.voice.channel;
         // If its midnight, Marquinhos enter the voice channel and ANNOUNCES that it's OLEO DE MACACO TIME
         if (horas == 0) {

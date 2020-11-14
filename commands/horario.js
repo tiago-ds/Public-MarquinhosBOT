@@ -3,18 +3,16 @@ module.exports = {
     name: "horario",
     description: "Te digo o horário. Apenas.",
     execute(message, args) {
-        hoje = new Date();
+        let hoje = new Date();
+        let horas = hoje.getHours() + 3;
         newUserChannel = message.member.voice.channel;
         // If its midnight, Marquinhos enter the voice channel and ANNOUNCES that it's OLEO DE MACACO TIME
-        if (hoje.getHours() == 0) {
-            filepath = "./resource/sounds/macaco.mp3";
+        if (horas == 0) {
+            filepath = "./resources/sounds/macaco.mp3";
             player.execute(message, filepath, newUserChannel);
         } else {
             // If its not midnight, Marquinhos send the time in the channel
             minutos = hoje.getMinutes();
-            horas = hoje.getHours().toLocaleString("pt-BR", {
-                timeZone: "America/Recife",
-            });
             if (minutos < 10) {
                 minutos = `0${minutos}`;
             }

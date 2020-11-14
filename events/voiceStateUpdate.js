@@ -34,9 +34,11 @@ module.exports = async (client, oldState, newState) => {
     ) {
         if (isReady) {
             let filepath;
-            switch (hoje.getDay().toLocaleString("pt-BR", {
-                timeZone: "America/Recife",
-            })) {
+            let today = hoje.getDay();
+            // Condition to switch to GMT -3
+            if(hoje.getHours() >= 21)
+                today -= 1;
+            switch (today) {
                 case '4':
                     randint = Math.floor(Math.random() * 2);
                     if (randint === 1) 

@@ -1,7 +1,7 @@
 const dj = require('./../utils/dj').dj;
 module.exports = {
     name: "volume",
-    description: "Mostro e altero o volume",
+    description: "Meu volume, né..",
     execute(message, args) {
         let command = args[0];
         if(!command){

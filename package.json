@@ -23,7 +23,7 @@
     "rebuild": "^0.1.2",
     "watch": "^1.0.2",
     "winston": "^3.3.3",
-    "ytdl-core": "^3.3.0",
+    "ytdl-core": "^4.1.1",
     "ytdl-core-discord": "^1.2.1",
     "ytsr": "^1.0.4"
   }

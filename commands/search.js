@@ -4,19 +4,21 @@ const dj = require("./../utils/dj").dj;
 const Discord = require("discord.js");
 module.exports = {
     name: "search",
-    description: "Pesquisa por um termo no youtube",
+    description: "Eu procuro a música que tu tá querendo",
     async execute(message, args) {
         if (args.length == 0) return message.channel.send("Digite um termo de busca");
-        searchTerm = args.join(" ");
+        let searchTerm = args.join(" ");
         let answer = await searcher.search(false, searchTerm);
         let searchEmbed = criarEmbed(`Resultado da pesquisa`);
         let videoCount = 0;
         let showedList = [];
+        let text = "```";
         for (let index = 0; index < answer.length; index++) {
-            const element = answer[index];
+            const element = answer[index].video;
             if (element) {
                 showedList.push(element);
-                searchEmbed.addField(element.title, element.duration, false);
+                text += `${videoCount + 1} - ${element.title} - ${element.duration}\n`
+                searchEmbed.addField(`${index + 1} - ${element.title}`, element.duration, false);
                 videoCount++;
             }
             if (videoCount == 10) break;
@@ -52,6 +54,7 @@ module.exports = {
                 }
             }
         })
+        
         text += "```";
         message.channel.send(text);
     },

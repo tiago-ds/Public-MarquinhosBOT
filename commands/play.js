@@ -9,6 +9,7 @@ module.exports = {
         let newUserChannel = message.member.voice.channel;
         let searchTerm = args.join(" ");
         let result = await searcher.search(true, searchTerm);
+        result = result.video;
         if (!newUserChannel) {
             message.channel.send(
                 "Você deve estar em um canal de voz para usar esse comando!"
@@ -26,7 +27,7 @@ module.exports = {
                 manage.nowPlayingRef = await message.channel.send(manage.nowPlaying);
             } else {
                 dj.musicQueue.push(result);
-                let newEmbed = criarEmbed("Adicionado a fila");
+                let newEmbed = criarEmbed("Adicionado à fila");
                 newEmbed.addField(result.title, result.duration);
                 message.channel.send(newEmbed);
             }

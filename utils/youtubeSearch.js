@@ -1,63 +1,34 @@
 const ytsr = require("ytsr");
 const { time } = require("console");
 const { link } = require("fs");
+const scraper = require("./../scrapper/scraper").youtube;
 module.exports = {
-    name: "play",
-    description: "Executa uma música",
     search(onlyOne, searchTerm) {
         return new Promise((resolve, reject) => {
-            ytsr.getFilters(searchTerm)
-                .then(async (filters) => {
-                    filter = filters
-                        .get("Type")
-                        .find((o) => o.name === "Video");
-                    const filters2 = await ytsr.getFilters(filter.ref);
-                    filter2 = filters2
-                        .get("Duration")
-                        .find((o) => o.name.startsWith("Short"));
-                    const options = {
-                        limit: 15,
-                        nextpageRef: filter2.ref,
-                    };
-                    const searchResults = await ytsr(null, options);
+            scraper(searchTerm)
+                .then((searchResults) => {
                     if (!onlyOne) {
                         try {
-                            videoList = searchResults.items.map((video) => {
-                                if (video.duration != null) {
-                                    let videoInfo = {
-                                        title: video.title,
-                                        link: video.link,
-                                        duration: video.duration,
-                                        thumbnail: video.thumbnail,
-                                    };
-                                    return videoInfo;
-                                }
-                            });
-                            resolve(videoList);
+                            resolve(searchResults.results);
                         } catch (err) {
+                            console.log(err);
                             reject(err);
                         }
                     } else {
                         try {
-                            let title = searchResults.items[0].title;
-                            let videoLink = searchResults.items[0].link;
-                            let duration = searchResults.items[0].duration;
-                            let thumbnail = searchResults.items[0].thumbnail;
-                            let videoInfo = {
-                                title: title,
-                                link: videoLink,
-                                duration: duration,
-                                thumbnail: thumbnail,
-                            };
-                            resolve(videoInfo);
+                            resolve(searchResults.results.filter((element) => {
+                                return element.video != undefined;
+                            })[0]);
                         } catch (err) {
+                            console.log(err);
                             reject(err);
                         }
                     }
                 })
-                .catch((err) => {
-                    console.error(err);
+                .catch((e) => {
+                    console.log(e);
+                    reject(e);
                 });
         });
-    },
+    }
 };

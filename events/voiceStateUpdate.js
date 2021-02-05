@@ -31,7 +31,8 @@ module.exports = async (client, oldState, newState) => {
     if (
         oldState.channel === null &&
         newState.channel !== null &&
-        !newState.member.bot
+        !newState.member.bot &&
+        !(newState.member.id == "598992394616307807")
     ) {
         let filepath;
         switch (

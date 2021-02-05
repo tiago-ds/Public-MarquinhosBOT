@@ -5,7 +5,6 @@ module.exports = async (client, oldState, newState) => {
     let newStateChannel = newState.channel;
     //console.log(newUserChannel);
     let oldStateChannel = oldState.channel;
-    hoje = new Date();
     // Every time that someone enters a voice channel, we check if that person its arrested.
     if (manage.idPreso.length > 0) {
         // It's inside a try/catch so if the person disconnect, marquinhos don't break
@@ -35,19 +34,25 @@ module.exports = async (client, oldState, newState) => {
         !(newState.member.id == "598992394616307807")
     ) {
         let filepath;
-        switch (
-            hoje.getDay().toLocaleString("pt-BR", {
-                timeZone: "America/Recife",
-            })
-        ) {
-            case "4":
+        let hoje = new Date();
+        let today = hoje.getDay();
+
+        // Condition to switch to GMT -3
+        if(hoje.getHours() >= 21)
+            today -= 1;
+        if(today < 0)
+            today = 6;
+
+        switch (today) {
+            case 4:
                 randint = Math.floor(Math.random() * 2);
                 if (randint === 1)
                     filepath = "./resources/sounds/quintafeiradaledale.mp3";
-                else filepath = "./resources/sounds/sextaanao.mp3";
+                else 
+                    filepath = "./resources/sounds/sextaanao.mp3";
                 player.execute("", filepath, newStateChannel);
                 break;
-            case "5":
+            case 5:
                 filepath = "./resources/sounds/sextafeirasim.mp3";
                 player.execute("", filepath, newStateChannel);
                 break;

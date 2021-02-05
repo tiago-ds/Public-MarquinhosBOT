@@ -5,7 +5,7 @@ module.exports = {
     description: "Instaura o CHAOS nos canais de voz",
     execute(message, args) {
         let num = parseInt(args[0]);
-        if (isNaN(num)) {
+        if (isNaN(num) || num > 25) {
             num = 10;
         } else {
             num = args[0];

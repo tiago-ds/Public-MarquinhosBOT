@@ -5,7 +5,7 @@ module.exports = {
     name: "help",
     description: "Eu te ajudo, dã.",
     aliases: ["commands"],
-    usage: "[command name]",
+    usage: "<command name>",
     cooldown: 5,
     execute(message, args) {
         const data = [];
@@ -54,24 +54,23 @@ module.exports = {
         if (!command) {
             return message.reply("that's not a valid command!");
         }
-        let fields;
+        let fields = [];
         try{
-            fields = [
-                {"name":"Aliases" , "value":command.aliases.join("| ")},
-                {"name":"Usage", "value":`${prefix}${command.name}`}
-            ];
+            if(command.aliases){
+                fields.push({"name":"Aliases" , "value":command.aliases});
+            }
+            if(command.usage){
+                fields.push({"name":"Usage", "value":`${command.usage}`});
+            }
         }catch(e){
             console.log(e);
-            fields = [
-                {"name":"Usage", "value":`${prefix}${command.name}`}
-            ];
         }
         
         
         const exampleEmbed = new Discord.MessageEmbed()
             .setColor("#0099ff")
             .setTitle(command.name)
-            .setDescription(command.description)
+            .setDescription(`Descrição: ${command.description}`)
             .addFields(fields);
 
         message.channel.send(exampleEmbed);

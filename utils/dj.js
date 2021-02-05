@@ -32,12 +32,11 @@ class Dj {
                 const video_id = this.musicQueue[0].link;
                 this.music = this.musicQueue[0];
                 this.musicDispatcher = connection.play(
-                    ytdl(video_id, {
+                    await ytdl(video_url, {
                         filter: "audioonly",
                         quality: "highestaudio",
                         highWaterMark: 1024 * 1024 * 10,
-                    }),
-                    { seek: seek }
+                    }, {seek:seek})
                 );
                 this.playingMusic = true;
                 manage.nowPlaying = criarEmbed("Tocando agora");
@@ -49,19 +48,20 @@ class Dj {
                 this.titlePlaying = this.musicQueue[0].title;
                 this.musicQueue.shift();
                 this.musicDispatcher.on("finish", (end) => {
+                    console.log("Finished playing");
                     setTimeout(() => {
                         console.log("Finished playing music");
                         if (this.musicQueue.length == 0) {
                             this.playingMusic = false;
                             newUserChannel.leave();
-                            this.musicDispatcher.destroy();
+                            //this.musicDispatcher.destroy();
                         } else {
                             this.playMusic(newUserChannel, 0);
                         }
                     }, 1500);
                 });
-                this.musicDispatcher.on("error", () => {
-                    console.error;
+                this.musicDispatcher.on("error", (error) => {
+                    console.log(error);
                     newUserChannel.leave();
                     this.playingMusic = false;
                 });

@@ -3,7 +3,7 @@ module.exports = {
     name: "importunar",
     description: "Eu vou lá atazanar a vida de quem tu quiser.",
     execute(message, args) {
-        //
+        let filepath;
         randint = Math.floor(Math.random() * 3);
         pessoaImportunada = message.content.split(" ")[1];
         importunada = message.guild.members.cache

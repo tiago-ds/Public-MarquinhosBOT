@@ -32,7 +32,7 @@ module.exports = {
                 );
             } else {
                 dj.musicQueue.push(result);
-                let newEmbed = criarEmbed("Adicionado a fila");
+                let newEmbed = criarEmbed("Adicionado à fila");
                 newEmbed.addField(result.title, result.duration);
                 message.channel.send(newEmbed);
             }

@@ -9,24 +9,24 @@ module.exports = {
         if (args.length == 0) return message.channel.send("Digite um termo de busca");
         let searchTerm = args.join(" ");
         let answer = await searcher.search(false, searchTerm);
-        let searchEmbed = criarEmbed(`Resultado da pesquisa`);
-        let videoCount = 0;
+        if (!answer) return message.channel.send("Erro na busca, favor tentar novamente");
         let showedList = [];
-        let text = "```";
-        for (let index = 0; index < answer.length; index++) {
-            const element = answer[index].video;
+        let text = "```"
+        let len = 10;
+        if (answer.length < 10) len = answer.length;
+        for (let index = 0; index < len; index++) {
+            const element = answer[index];
+            showedList[index] = element;
             if (element) {
-                showedList.push(element);
-                text += `${videoCount + 1} - ${element.title} - ${element.duration}\n`
-                searchEmbed.addField(`${index + 1} - ${element.title}`, element.duration, false);
-                videoCount++;
+                text += `${index + 1} - ${element.title} - ${element.duration}\n`
+
             }
-            if (videoCount == 10) break;
         }
         const collector = new Discord.MessageCollector(message.channel, m => m.author.id === message.author.id, { time: 10000 });
         collector.on('collect', async message => {
             let choice = parseInt(message.content);
-            if(isNaN(choice) && (choice < 1 || choice > 9)) return message.channel.send("Opção inválida!");
+            console.log(choice);
+            if(isNaN(choice) || (choice < 1 || choice > 10)) return message.channel.send("Opção inválida!");
             let newUserChannel = message.member.voice.channel;
             let choosed = showedList[choice-1];
             if (!newUserChannel) {
@@ -53,9 +53,9 @@ module.exports = {
                     collector.stop();
                 }
             }
-        })
-        
-        text += "```";
+        });
+        text += "```"
+
         message.channel.send(text);
     },
 };

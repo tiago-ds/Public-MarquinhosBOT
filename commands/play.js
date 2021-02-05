@@ -7,13 +7,17 @@ module.exports = {
     description: "Executa uma música",
     async execute(message, args) {
         let newUserChannel = message.member.voice.channel;
+        if (args.length == 0)
+            return message.channel.send(
+                "Você deve informar pelo menos um termo de busca!"
+            );
         let searchTerm = args.join(" ");
-        let result = await searcher.search(true, searchTerm);
         if (!newUserChannel) {
             message.channel.send(
                 "Você deve estar em um canal de voz para usar esse comando!"
             );
         } else {
+            let result = await searcher.search(true, searchTerm);
             if (
                 dj.musicQueue.length == 0 &&
                 !dj.playingMusic &&
@@ -23,7 +27,9 @@ module.exports = {
                 dj.playMusic(newUserChannel, 0);
                 manage.nowPlaying = criarEmbed("Tocando agora");
                 manage.nowPlaying.addField(result.title, result.duration);
-                manage.nowPlayingRef = await message.channel.send(manage.nowPlaying);
+                manage.nowPlayingRef = await message.channel.send(
+                    manage.nowPlaying
+                );
             } else {
                 dj.musicQueue.push(result);
                 let newEmbed = criarEmbed("Adicionado a fila");

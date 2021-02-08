@@ -3,6 +3,7 @@ module.exports = {
     name: "desprender",
     aliases: ["soltar", "liberar"],
     description: "Eu realmente preciso explicar?",
+    usage: "!desprender <nome da pessoa>",
     execute(message, args) {
         // Checks if the person who sent the !desprender request its not the arrested one
         // (Also checks if its not the father of Marquinhos :))

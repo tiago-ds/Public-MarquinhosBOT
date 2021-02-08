@@ -8,6 +8,8 @@ module.exports = {
         if (dj.musicQueue.length == 0 && dj.playingMusic){
             dj.musicDispatcher.destroy();
             dj.playingMusic = false;
+            newUserChannel.leave();
+            message.channel.send("```Fila vazia, saindo do canal```")
         }else if(dj.musicQueue.length == 0 && !dj.playingMusic){
             message.channel.send("```Não possui mídia sendo executada```")
         }else{

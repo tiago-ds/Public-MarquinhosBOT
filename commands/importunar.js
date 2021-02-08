@@ -1,7 +1,9 @@
 const player = require("./../utils/player");
 module.exports = {
     name: "importunar",
+    aliases: "",
     description: "Eu vou lá atazanar a vida de quem tu quiser.",
+    usage: " <nome da pessoa>",
     execute(message, args) {
         //
         randint = Math.floor(Math.random() * 3);

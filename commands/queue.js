@@ -16,7 +16,7 @@ module.exports = {
             for (let index = 0; index < dj.musicQueue.length; index++) {
                 const element = dj.musicQueue[index];
                 if (element) {
-                    embed.addField(`${index + 1} - ${element.title} - `, `${element.duration}`)
+                    embed.addField(`${index + 1} - ${element.title}`, element.duration)
                 }
             }
             text += "```";

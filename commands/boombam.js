@@ -4,6 +4,6 @@ module.exports = {
     description: "Boombam pow",
     execute(message, args) {
         newUserChannel = message.member.voice.channel;
-        player.execute(message, "./resource/sounds/boombam.mp3", newUserChannel);
+        player.execute(message, "./resources/sounds/boombam.mp3", newUserChannel);
     },
 };

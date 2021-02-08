@@ -1,7 +1,7 @@
 module.exports = {
     name: "anom",
     description: "Envio uma mensagem pra um canal, de forma anônima ;P",
-    usage: " <nome do canal> <mensagem>",
+    usage: "!anom <nome do canal> <mensagem>",
     execute(message, args) {
         args = messageHandler(args);
         canal = message.guild.channels.cache.filter(channel => channel.name === args[0]).first();

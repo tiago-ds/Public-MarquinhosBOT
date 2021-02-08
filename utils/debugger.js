@@ -1,8 +1,8 @@
-const fileEdit = require("./fileEdit.js");
+
 const winston = require("./logger");
 module.exports = {
     debug(message) {
-        debugMode = fileEdit.read("debug");
+        debugMode = true;
         if (debugMode) {
             console.log(message);
         } else {

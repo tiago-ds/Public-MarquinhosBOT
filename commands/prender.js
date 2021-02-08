@@ -1,4 +1,4 @@
-const fileEdit = require("./../utils/fileEdit");
+const manage = require("./../utils/management").manage;
 module.exports = {
     name: "prender",
     description:
@@ -24,21 +24,18 @@ module.exports = {
                 (user) => user.user.username === nomePreso
             );
         }
-        idPreso = fileEdit.read("idPreso");
         preso = presoCollection.first();
         if (preso.user.username == "MarquinhosBOT") {
-            idPreso.push(message.author.id);
-            fileEdit.edit("idPreso", idPreso);
+            manage.idPreso.push(message.author.id);
             message.channel.send("Trouxa, eu sou filho do Rei :P");
             return;
         }
         if (!preso) {
             message.channel.send("Não pude achar essa pessoa no servidor!");
         } else {
-            if (!idPreso.includes(preso.id)) {
+            if (!manage.idPreso.includes(preso.id)) {
                 // Then the id its assigned for the person who'll be arrested
-                idPreso.push(preso.id);
-                fileEdit.edit("idPreso", idPreso);
+                manage.idPreso.push(preso.id);
                 // Here we warn to the sent message's channel that the person will be arrested
                 message.channel.send(
                     message.author.username +

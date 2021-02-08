@@ -1,5 +1,5 @@
 require('dotenv').config();
-
+const { prefix } = process.env.PREFIX;
 const Discord = require("discord.js");
 module.exports = {
     name: "help",
@@ -54,24 +54,23 @@ module.exports = {
         if (!command) {
             return message.reply("that's not a valid command!");
         }
-        let fields;
+        let fields = [];
         try{
-            fields = [
-                {"name":"Aliases" , "value":command.aliases},
-                {"name":"Usage", "value":`${process.env.PREFIX}${command.name} ${command.usage}`}
-            ];
+            if(command.aliases){
+                fields.push({"name":"Aliases" , "value":command.aliases});
+            }
+            if(command.usage){
+                fields.push({"name":"Usage", "value":`${command.usage}`});
+            }
         }catch(e){
             console.log(e);
-            fields = [
-                {"name":"Usage", "value":`${process.env.PREFIX}${command.name} ${command.usage}`}
-            ];
         }
         
         
         const exampleEmbed = new Discord.MessageEmbed()
             .setColor("#0099ff")
             .setTitle(command.name)
-            .setDescription(command.description)
+            .setDescription(`Descrição: ${command.description}`)
             .addFields(fields);
 
         message.channel.send(exampleEmbed);

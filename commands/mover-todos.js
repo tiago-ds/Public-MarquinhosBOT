@@ -3,9 +3,11 @@ const { Console } = require("console");
 module.exports = {
     name: "mover-todos",
     description: "Eu arrasto TODO MUNDO pra outro canal :O",
+    usage: "<nome do canal>",
     async execute(message, args) {
         if(message.member.hasPermission('MOVE_MEMBERS')){
             let newChannelName = args.join(' ');
+            newChannelName = newChannelName.charAt(0).toUpperCase() + newChannelName.slice(1);
 
             let voiceChannel = message.member.voice.channel;
             if(!voiceChannel){

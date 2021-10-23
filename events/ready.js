@@ -3,8 +3,8 @@ const roleta = require('./../utils/adminRoulette');
 require('dotenv').config();
 module.exports = (client) => {
     console.log("logged");
+    client.user.setActivity("NADA PORQUE ESTOU EM MODO DEVELOPMENT");
     client.user.setActivity(animalLottery.get_bicho());
-    //client.user.setActivity("NADA PORQUE ESTOU EM MODO DEVELOPMENT");
     setInterval(function () {
         client.user.setActivity(animalLottery.get_bicho());
     }, 100 * 1000);

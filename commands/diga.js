@@ -6,6 +6,7 @@ require('dotenv').config();
 module.exports = {
     name: "diga",
     description: "Eu te recomendo um filme ou uma série :)",
+    usage: " <1 a 3> <series ou filmes>",
     async execute(message, args) {
         //message.delete();
         let obj;
@@ -29,6 +30,7 @@ module.exports = {
                 await message.channel.send("Deu algo errado aí. Tenta de novo, eu acho.");
             }
         }
+        //message.channel.send(`Que tal assistir ${filme.title}?\nAqui está uma descrição: ${filme.overview}\n`);
     },
 };
 

@@ -9,6 +9,7 @@ class Dj {
     playingMusic;
     playingAudio;
     music;
+    volume;
     constructor() {
         this.playingMusic = false;
         this.playingAudio = false;
@@ -19,47 +20,48 @@ class Dj {
         this.audioDispatcher = null;
         this.music;
         this.seek = 0;
+        this.volume = 0.4;
     }
 
     playMusic(newUserChannel, seek) {
         if (this.musicQueue.length == 0) return;
-        this.playingMusic = true;
+        
         newUserChannel
             .join()
             .then( async (connection) => {
                 const video_id = this.musicQueue[0].link;
-                
                 this.music = this.musicQueue[0];
                 this.musicDispatcher = connection.play(
-                    ytdl(video_id, {
+                    await ytdl(video_url, {
                         filter: "audioonly",
                         quality: "highestaudio",
                         highWaterMark: 1024 * 1024 * 10,
-                    }),
-                    { seek: seek }
+                    }, {seek:seek})
                 );
+                this.playingMusic = true;
                 manage.nowPlaying = criarEmbed("Tocando agora");
                 manage.nowPlaying.addField(this.musicQueue[0].title, this.musicQueue[0].duration);
                 manage.nowPlayingRef.delete();
                 manage.nowPlayingRef = await manage.nowPlayingRef.channel.send(manage.nowPlaying);
                 this.seek = 0;
-                this.musicDispatcher.setVolume(0.4);
+                this.musicDispatcher.setVolume(this.volume);
                 this.titlePlaying = this.musicQueue[0].title;
                 this.musicQueue.shift();
                 this.musicDispatcher.on("finish", (end) => {
+                    console.log("Finished playing");
                     setTimeout(() => {
                         console.log("Finished playing music");
                         if (this.musicQueue.length == 0) {
                             this.playingMusic = false;
                             newUserChannel.leave();
-                            this.musicDispatcher.destroy();
+                            //this.musicDispatcher.destroy();
                         } else {
                             this.playMusic(newUserChannel, 0);
                         }
                     }, 1500);
                 });
-                this.musicDispatcher.on("error", () => {
-                    console.error;
+                this.musicDispatcher.on("error", (error) => {
+                    console.log(error);
                     newUserChannel.leave();
                     this.playingMusic = false;
                 });
@@ -123,4 +125,3 @@ function criarEmbed(title) {
 }
 
 module.exports.dj = new Dj();
-

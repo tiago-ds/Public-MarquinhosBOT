@@ -3,6 +3,7 @@ module.exports = {
     name: "prender",
     description:
         "Prendo alguém da sua escolha, impedindo que essa pessoa volte até que alguém o desprenda.",
+    usage: " <nome de quem você quer prender>",
     execute(message, args) {
         // idPreso can be undefined (wich will activate the function)
         /* Transforms the content of the message in an array and excludes the !prender part

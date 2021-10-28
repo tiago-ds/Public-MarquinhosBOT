@@ -1,5 +1,3 @@
-const { Console } = require("console");
-
 module.exports = {
     name: "mover-todos",
     description: "Eu arrasto TODO MUNDO pra outro canal :O",

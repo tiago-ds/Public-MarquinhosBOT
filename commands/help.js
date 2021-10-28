@@ -8,7 +8,7 @@ module.exports = {
     usage: "[command name]",
     cooldown: 5,
     execute(message, args) {
-        const data = [];
+
         const { commands } = message.client;
 
         if (!args.length) {
@@ -20,10 +20,7 @@ module.exports = {
 
                 return container;
             });
-            // data.push(commands.map((command) => command.name).join(", "));
-            // data.push(
-            //     `\nYou can send \`${prefix}help [command name]\` to get info on a specific command!`
-            // );
+
             const exampleEmbed = new Discord.MessageEmbed()
                 .setColor("#0099ff")
                 .setTitle("Commands")
@@ -38,11 +35,11 @@ module.exports = {
                 })
                 .catch((error) => {
                     console.error(
-                        `Could not send help DM to ${message.author.tag}.\n`,
+                        `Não pude enviar uma Mensagem privada pra ${message.author.tag}.\n`,
                         error
                     );
                     message.reply(
-                        "it seems like I can't DM you! Do you have DMs disabled?"
+                        "Ativa tuas DM aí, irmão (ou se tu me deu block, eu te odeio)"
                     );
                 });
         }

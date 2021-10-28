@@ -11,7 +11,7 @@ module.exports = {
     // Retransforms the name in a String without the !prender part (why didn't I just used replace()?)
     nomePreso = arrayPreso.join(' ');
     */
-        // Get the person who should be arrested
+        // Get the person who should be arrested (For now Marquinhos only accepts people with simple names)
         nomePreso = args[0];
         // Try to find a user with a nickname equals to the given name, and put into the collection presoCollection
         presoCollection = message.guild.members.cache.filter(
@@ -42,7 +42,7 @@ module.exports = {
                         preso.user.username +
                         "!"
                 );
-                // Move the arrested person to the 'alone' channel
+                // Move the arrested person to the AFK channel
                 preso.voice.setChannel(message.guild.afkChannelID);
             } else {
                 message.channel.send(preso.user.username + " já está preso!");

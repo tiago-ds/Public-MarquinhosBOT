@@ -29,10 +29,10 @@ module.exports = {
                 let admin = message.guild.members.cache
                     .filter((user) => user.id === message.guild.ownerID)
                     .first();
-                admin.send(solto.user.username + " foi solto no Devaneios!!");
+                admin.send(solto.user.username + ` foi solto no ${message.guild.name}`);
                 manage.idPreso.splice(manage.idPreso.indexOf(solto.id), 1);
                 try {
-                    solto.send("Você foi solto no Devaneios!! :)");
+                    solto.send(`Você foi solto no ${message.guild.name} :)`);
                 } catch (error) {
                     console.log(error);
                 }

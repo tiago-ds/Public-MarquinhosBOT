@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 require('dotenv').config();
 module.exports = async (client, member) => {
     member.guild.channels.cache
-        .get(process.env.DEFAULT_CHANNEL_ID)
+        .get(member.guild.publicUpdatesChannelId)
         .send(member.user.username + " agora faz parte do motel!");
     let role = member.guild.roles.cache.find((r) => r.name === process.env.OUTSIDER_ROLE_NAME);
     member.roles.add(role);
@@ -21,11 +21,11 @@ module.exports = async (client, member) => {
         .setAuthor(member.user.username, member.user.avatarURL)
         .setColor("#0099ff")
         .addFields({
-            name: "Bem vindo(a)",
+            name: "Bem vinde!",
             value:
                 "Leia as regras para não tomar KICK/BAN e mantenha um bom relacionamento com o pessoal :sunglasses: ",
         })
         .setTimestamp()
         .setFooter("Data de entrada", client.user.avatarURL);
-    member.guild.channels.cache.get(process.env.NEWCOMERS_CHANNEL_ID).send({ embed });
+    member.guild.channels.cache.get(member.guildrulesChannelId).send({ embed });
 };

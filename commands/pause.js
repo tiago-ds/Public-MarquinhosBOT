@@ -2,7 +2,7 @@ const dj = require('./../utils/dj').dj;
 module.exports = {
     name: "pause",
     description: "Pauso a música",
-    execute(message, args) {
+    execute(message) {
         dj.musicDispatcher.pause();
         console.log(dj.titlePlaying);
         console.log(dj.musicDispatcher.player.dispatcher._pausedTime);

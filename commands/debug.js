@@ -1,9 +1,9 @@
-const logging = require("./../utils/debugger");
-const manage = require("./../utils/management").manage
+const manage = require("./../utils/management").manage;
+
 module.exports = {
     name: "debug",
     description: "Incorporo o Rammus",
-    execute(message, args) {
+    execute(message) {
         message.channel.send("Ok?");
     },
 };

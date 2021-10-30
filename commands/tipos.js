@@ -1,6 +1,8 @@
 const fetch = require('node-fetch');
 const Discord = require("discord.js");
 
+const gifs = require('../utils/gif_links');
+
 module.exports = {
     name: "poke-game",
     description: "Tu manja de pokémon?",
@@ -37,16 +39,13 @@ module.exports = {
             reactionCollector.on("collect", async (newReaction, user) => {
                 newReaction.users.remove(user.id);
                 if (newReaction.emoji.name === "1️⃣") {
-                    //message.channel.send("Hit");
-                    game.checkAnswer(1);
+                    game.checkAnswer(0);
                 } else if (newReaction.emoji.name === "2️⃣") {
-                    game.checkAnswer(2);
+                    game.checkAnswer(1);
                 } else if (newReaction.emoji.name === "3️⃣") {
-                    //message.channel.send("Stand");
-                    game.checkAnswer(3);
+                    game.checkAnswer(2);
                 } else if (newReaction.emoji.name === "4️⃣") {
-                    //message.channel.send("Stand");
-                    game.checkAnswer(4);
+                    game.checkAnswer(3);
                 }
             });
     
@@ -80,6 +79,10 @@ class PokeTypesGame{
         // Base URL for sprite
         this.baseSpriteURL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/';
 
+        // For the game to end
+        this.finished = false;
+
+        // Answers
         this.correct_answers = [];
     }
 
@@ -87,7 +90,7 @@ class PokeTypesGame{
     async setEmbed(){
         const info = await this.generateInfo();
 
-        this.correct_answers = [info.answers];
+        this.correct_answers = [...info.answers];
 
         this.embedRef.setDescription(info.question);
         this.embedRef.addFields(
@@ -129,12 +132,9 @@ class PokeTypesGame{
         
         let correct_answers = [];
 
-        console.log(tipos, alternativas);
         for(let x = 0; x < tipos.length; x++){
-            console.log(tipos[x]);
             correct_answers.push(alternativas.indexOf(tipos[x]));
         }
-        console.log(correct_answers);
 
         return {
             question: `Selecione um tipo de ${this.capitalize(data.name)}`,
@@ -154,10 +154,15 @@ class PokeTypesGame{
 
     // Check if answer is the correct one
     checkAnswer(ans){
-        if(this.correct_answers.includes(ans)){
-            console.log("OK");
+        if(!this.finished){
+            this.finished = true;
+            if(this.correct_answers.includes(ans)){
+                this.msgRef.channel.send(`Oba! Você acertou! ${gifs.getHappy()}`);
+            }else{
+                this.msgRef.channel.send(`Opa! Resposta errada! ${gifs.getHappy()}`);
+            }
         }else{
-            console.log("NOT OK");
+            return;
         }
     }
 
